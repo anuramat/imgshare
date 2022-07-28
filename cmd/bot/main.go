@@ -2,20 +2,35 @@ package main
 
 import (
 	"log"
+	"os"
 
-	"gitlab.ozon.dev/kshmatov/masterclass1/internal/commander"
-	"gitlab.ozon.dev/kshmatov/masterclass1/internal/handlers"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/joho/godotenv"
+	"gitlab.ozon.dev/anuramat/homework-1/internal"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 )
 
 func main() {
-	log.Println("start main")
-	cmd, err := commander.Init()
-	if err != nil {
-		log.Panic(err)
-	}
-	handlers.AddHandlers(cmd)
+	log.Println("Starting bot...")
 
-	if err := cmd.Run(); err != nil {
-		log.Panic(err)
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Error loading .env file")
 	}
+	token := os.Getenv("TELEGRAM_APITOKEN")
+	if len(token) == 0 {
+		log.Fatal("Telegram API token not found, exiting.")
+	}
+
+	bot, err := tgbotapi.NewBotAPI(token)
+	if err != nil {
+		log.Fatal("Couldn't initialize bot:", err)
+	}
+	//bot.Debug = true
+
+	// start main loop
+	users := models.Users{}
+	images := models.Images{}
+	messageFiles := models.MessageFiles{}
+	internal.StartBot(bot, users, images, messageFiles)
 }
