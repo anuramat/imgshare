@@ -16,6 +16,7 @@ import (
 const (
 	port_grpc = ":51234"
 	port_rest = ":5123"
+	n_jobs    = 10
 )
 
 func main() {
@@ -30,7 +31,7 @@ func start_grpc() {
 		log.Panicln("Error listening on GRPC port", port_grpc, ":", err)
 	}
 	s := grpc.NewServer()
-	api.RegisterBotDBServer(s, db.NewServer())
+	api.RegisterBotDBServer(s, db.NewServer(n_jobs))
 	reflection.Register(s)
 	if err := s.Serve(listener); err != nil {
 		log.Panicln("Error serving GRPC", err)

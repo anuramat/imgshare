@@ -11,6 +11,7 @@ type Server struct {
 	images       Images
 	messageFiles MessageFiles
 	api.UnimplementedBotDBServer
+	pool chan struct{}
 }
 
 type User struct {
@@ -38,11 +39,12 @@ type MessageFiles struct {
 	data map[int64]string
 }
 
-func NewServer() (s *Server) {
+func NewServer(n_jobs int) (s *Server) {
 	s = &Server{}
 	s.users = Users{&sync.RWMutex{}, make(map[int64]*User)}
 	s.images = Images{&sync.RWMutex{}, make(map[string]*Image)}
 	s.messageFiles = MessageFiles{&sync.RWMutex{}, make(map[int64]string)}
+	s.pool = make(chan struct{}, n_jobs)
 	return
 }
 
