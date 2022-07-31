@@ -7,6 +7,7 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/db"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 const (
@@ -22,6 +23,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	api.RegisterBotDBServer(s, db.NewServer())
+	reflection.Register(s)
 	if err := s.Serve(listener); err != nil {
 		log.Panicln("Error serving", err)
 	}
