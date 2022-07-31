@@ -11,6 +11,7 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/db"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -43,7 +44,8 @@ func start_grpc() {
 
 func start_rest() {
 	mux := runtime.NewServeMux()
-	err := api.RegisterBotDBHandlerFromEndpoint(context.Background(), mux, port_grpc, []grpc.DialOption{grpc.WithInsecure()})
+	dialoption := grpc.WithTransportCredentials(insecure.NewCredentials())
+	err := api.RegisterBotDBHandlerFromEndpoint(context.Background(), mux, port_grpc, []grpc.DialOption{dialoption})
 	if err != nil {
 		log.Panicln("Error connecting gateway to GRPC", err)
 	}
