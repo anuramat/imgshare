@@ -1,0 +1,106 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/api.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "BotDB"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiEmpty": {
+      "type": "object"
+    },
+    "apiImage": {
+      "type": "object",
+      "properties": {
+        "FileID": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Upvotes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "Downvotes": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "apiState": {
+      "type": "string",
+      "enum": [
+        "StartState",
+        "NoState",
+        "UploadImageInitState",
+        "UploadImageState",
+        "UploadDescriptionState",
+        "EditDescriptionState",
+        "RandomImageState",
+        "GalleryState"
+      ],
+      "default": "StartState"
+    },
+    "apiUser": {
+      "type": "object",
+      "properties": {
+        "UserID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "State": {
+          "$ref": "#/definitions/apiState"
+        },
+        "LastUpload": {
+          "type": "string"
+        },
+        "LastDownload": {
+          "type": "string"
+        },
+        "LastGalleryIndex": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
