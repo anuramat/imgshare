@@ -7,9 +7,15 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 )
 
-func (s *Server) CreateImage(_ context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
+func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.Lock()
 	defer s.images.mu.Unlock()
@@ -21,9 +27,15 @@ func (s *Server) CreateImage(_ context.Context, input *api.ImageAuthRequest) (*a
 	return new_image.Image, nil
 }
 
-func (s *Server) ReadImage(_ context.Context, input *api.Image) (*api.Image, error) {
+func (s *Server) ReadImage(ctx context.Context, input *api.Image) (*api.Image, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.RLock()
 	defer s.images.mu.RUnlock()
@@ -31,9 +43,15 @@ func (s *Server) ReadImage(_ context.Context, input *api.Image) (*api.Image, err
 	return s.buildImage(input.FileID)
 }
 
-func (s *Server) GetRandomImage(_ context.Context, _ *api.Empty) (*api.Image, error) {
+func (s *Server) GetRandomImage(ctx context.Context, _ *api.Empty) (*api.Image, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.RLock()
 	defer s.images.mu.RUnlock()
@@ -45,9 +63,15 @@ func (s *Server) GetRandomImage(_ context.Context, _ *api.Empty) (*api.Image, er
 	return s.buildImage(fileID)
 }
 
-func (s *Server) UpvoteImage(_ context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
+func (s *Server) UpvoteImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.Lock()
 	defer s.images.mu.Unlock()
@@ -59,9 +83,15 @@ func (s *Server) UpvoteImage(_ context.Context, input *api.ImageAuthRequest) (*a
 	return s.buildImage(input.Image.FileID)
 }
 
-func (s *Server) DownvoteImage(_ context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
+func (s *Server) DownvoteImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.Lock()
 	defer s.images.mu.Unlock()
@@ -73,9 +103,15 @@ func (s *Server) DownvoteImage(_ context.Context, input *api.ImageAuthRequest) (
 	return s.buildImage(input.Image.FileID)
 }
 
-func (s *Server) SetDescriptionImage(_ context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
+func (s *Server) SetDescriptionImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.Lock()
 	defer s.images.mu.Unlock()
@@ -87,9 +123,15 @@ func (s *Server) SetDescriptionImage(_ context.Context, input *api.ImageAuthRequ
 	return s.buildImage(input.Image.FileID)
 }
 
-func (s *Server) DeleteImage(_ context.Context, input *api.ImageAuthRequest) (_ *api.Empty, err error) {
+func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (_ *api.Empty, err error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.Lock()
 	delete(s.images.data, input.Image.FileID)
@@ -112,9 +154,16 @@ func (s *Server) DeleteImage(_ context.Context, input *api.ImageAuthRequest) (_ 
 	return
 }
 
-func (s *Server) GetAllImages(_ context.Context, _ *api.Empty) (*api.Images, error) {
+func (s *Server) GetAllImages(ctx context.Context, _ *api.Empty) (*api.Images, error) {
+	// HW-2 requirement
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
 
 	s.images.mu.Lock()
 	defer s.images.mu.Unlock()

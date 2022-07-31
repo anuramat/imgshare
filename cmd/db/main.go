@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
@@ -14,9 +15,10 @@ import (
 )
 
 const (
-	port_grpc = ":51234"
-	port_rest = ":5123"
-	n_jobs    = 10
+	port_grpc   = ":51234"
+	port_rest   = ":5123"
+	n_jobs      = 10
+	rpc_timeout = 500 * time.Millisecond
 )
 
 func main() {
@@ -30,7 +32,8 @@ func start_grpc() {
 	if err != nil {
 		log.Panicln("Error listening on GRPC port", port_grpc, ":", err)
 	}
-	s := grpc.NewServer()
+	interceptor := grpc.UnaryInterceptor(timeoutInterceptor)
+	s := grpc.NewServer(interceptor)
 	api.RegisterBotDBServer(s, db.NewServer(n_jobs))
 	reflection.Register(s)
 	if err := s.Serve(listener); err != nil {
@@ -55,4 +58,11 @@ func start_rest() {
 	if err != nil {
 		log.Panicln("Error serving REST")
 	}
+}
+
+func timeoutInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+	ctx, cancel := context.WithTimeout(ctx, rpc_timeout)
+	defer cancel()
+	resp, err = handler(ctx, req)
+	return
 }
