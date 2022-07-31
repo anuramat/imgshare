@@ -33,6 +33,8 @@ type BotDBClient interface {
 	UpvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
 	DownvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
 	DeleteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error)
+	// HW-2 requirement
+	GetAllImages(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Images, error)
 }
 
 type botDBClient struct {
@@ -142,6 +144,15 @@ func (c *botDBClient) DeleteImage(ctx context.Context, in *ImageAuthRequest, opt
 	return out, nil
 }
 
+func (c *botDBClient) GetAllImages(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Images, error) {
+	out := new(Images)
+	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/GetAllImages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BotDBServer is the server API for BotDB service.
 // All implementations must embed UnimplementedBotDBServer
 // for forward compatibility
@@ -157,6 +168,8 @@ type BotDBServer interface {
 	UpvoteImage(context.Context, *ImageAuthRequest) (*Image, error)
 	DownvoteImage(context.Context, *ImageAuthRequest) (*Image, error)
 	DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error)
+	// HW-2 requirement
+	GetAllImages(context.Context, *Empty) (*Images, error)
 	mustEmbedUnimplementedBotDBServer()
 }
 
@@ -196,6 +209,9 @@ func (UnimplementedBotDBServer) DownvoteImage(context.Context, *ImageAuthRequest
 }
 func (UnimplementedBotDBServer) DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteImage not implemented")
+}
+func (UnimplementedBotDBServer) GetAllImages(context.Context, *Empty) (*Images, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllImages not implemented")
 }
 func (UnimplementedBotDBServer) mustEmbedUnimplementedBotDBServer() {}
 
@@ -408,6 +424,24 @@ func _BotDB_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BotDB_GetAllImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BotDBServer).GetAllImages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ozon.dev.homework.api.BotDB/GetAllImages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BotDBServer).GetAllImages(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BotDB_ServiceDesc is the grpc.ServiceDesc for BotDB service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -458,6 +492,10 @@ var BotDB_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteImage",
 			Handler:    _BotDB_DeleteImage_Handler,
+		},
+		{
+			MethodName: "GetAllImages",
+			Handler:    _BotDB_GetAllImages_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

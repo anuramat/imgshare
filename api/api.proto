@@ -37,8 +37,8 @@ message ImageAuthRequest {
     Image Image = 2;
 }
 
-message ImageID {
-    string FileID = 1;
+message Images {
+    repeated Image Image = 1;
 }
 
 service BotDB {
@@ -54,6 +54,7 @@ service BotDB {
     rpc UpvoteImage(ImageAuthRequest) returns (Image);
     rpc DownvoteImage(ImageAuthRequest) returns (Image);
     rpc DeleteImage(ImageAuthRequest) returns (Empty);
-}
 
-message Response {}
+    // HW-2 requirement
+    rpc GetAllImages(Empty) returns (Images);
+}

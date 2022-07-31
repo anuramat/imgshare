@@ -39,6 +39,17 @@
         }
       }
     },
+    "apiImages": {
+      "type": "object",
+      "properties": {
+        "Image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiImage"
+          }
+        }
+      }
+    },
     "apiState": {
       "type": "string",
       "enum": [

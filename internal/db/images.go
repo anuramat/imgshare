@@ -111,3 +111,19 @@ func (s *Server) DeleteImage(_ context.Context, input *api.ImageAuthRequest) (_ 
 	s.users.data[input.UserID].images = append(user_images[:idx], user_images[idx+1:]...)
 	return
 }
+
+func (s *Server) GetAllImages(_ context.Context, _ *api.Empty) (*api.Images, error) {
+	s.pool <- struct{}{}
+	defer func() { <-s.pool }()
+
+	s.images.mu.Lock()
+	defer s.images.mu.Unlock()
+
+	images_slice := make([]*api.Image, len(s.images.data))
+	i := 0
+	for _, v := range s.images.data {
+		images_slice[i] = v.Image
+		i += 1
+	}
+	return &api.Images{Image: images_slice}, nil
+}
