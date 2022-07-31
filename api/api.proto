@@ -9,8 +9,7 @@ message User {
     State State = 2;
     string LastUpload = 3;
     string LastDownload = 4;
-    repeated string Images = 5;
-    int64 LastGalleryIndex = 6;
+    int64 LastGalleryIndex = 5;
 }
 
 message Image {
@@ -31,18 +30,30 @@ enum State {
 	GalleryState = 7;
 }
 
+message Empty{}
+
+message ImageAuthRequest {
+    int64 UserID = 1;
+    Image Image = 2;
+}
+
+message ImageID {
+    string FileID = 1;
+}
+
 service BotDB {
     rpc CreateUser(User) returns (User);
     rpc ReadUser(User) returns (User);
     rpc UpdateUser(User) returns (User);
     rpc DeleteUser(User) returns (User);
 
-    rpc CreateImage(Image) returns (Image);
+    rpc CreateImage(ImageAuthRequest) returns (Image);
     rpc ReadImage(Image) returns (Image);
-    rpc SetDescriptionImage(Image) returns (Image);
-    rpc UpvoteImage(Image) returns (Image);
-    rpc DownvoteImage(Image) returns (Image);
-    rpc DeleteImage(Image) returns (Image);
+    rpc GetRandomImage(Empty) returns (Image);
+    rpc SetDescriptionImage(ImageAuthRequest) returns (Image);
+    rpc UpvoteImage(ImageAuthRequest) returns (Image);
+    rpc DownvoteImage(ImageAuthRequest) returns (Image);
+    rpc DeleteImage(ImageAuthRequest) returns (Empty);
 }
 
 message Response {}

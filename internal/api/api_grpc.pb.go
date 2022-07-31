@@ -26,12 +26,13 @@ type BotDBClient interface {
 	ReadUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
 	UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
 	DeleteUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
-	CreateImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error)
+	CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
 	ReadImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error)
-	SetDescriptionImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error)
-	UpvoteImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error)
-	DownvoteImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error)
-	DeleteImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error)
+	GetRandomImage(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Image, error)
+	SetDescriptionImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
+	UpvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
+	DownvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
+	DeleteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type botDBClient struct {
@@ -78,7 +79,7 @@ func (c *botDBClient) DeleteUser(ctx context.Context, in *User, opts ...grpc.Cal
 	return out, nil
 }
 
-func (c *botDBClient) CreateImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
+func (c *botDBClient) CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
 	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/CreateImage", in, out, opts...)
 	if err != nil {
@@ -96,7 +97,16 @@ func (c *botDBClient) ReadImage(ctx context.Context, in *Image, opts ...grpc.Cal
 	return out, nil
 }
 
-func (c *botDBClient) SetDescriptionImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
+func (c *botDBClient) GetRandomImage(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Image, error) {
+	out := new(Image)
+	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/GetRandomImage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *botDBClient) SetDescriptionImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
 	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/SetDescriptionImage", in, out, opts...)
 	if err != nil {
@@ -105,7 +115,7 @@ func (c *botDBClient) SetDescriptionImage(ctx context.Context, in *Image, opts .
 	return out, nil
 }
 
-func (c *botDBClient) UpvoteImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
+func (c *botDBClient) UpvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
 	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/UpvoteImage", in, out, opts...)
 	if err != nil {
@@ -114,7 +124,7 @@ func (c *botDBClient) UpvoteImage(ctx context.Context, in *Image, opts ...grpc.C
 	return out, nil
 }
 
-func (c *botDBClient) DownvoteImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
+func (c *botDBClient) DownvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
 	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/DownvoteImage", in, out, opts...)
 	if err != nil {
@@ -123,8 +133,8 @@ func (c *botDBClient) DownvoteImage(ctx context.Context, in *Image, opts ...grpc
 	return out, nil
 }
 
-func (c *botDBClient) DeleteImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
-	out := new(Image)
+func (c *botDBClient) DeleteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/DeleteImage", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -140,12 +150,13 @@ type BotDBServer interface {
 	ReadUser(context.Context, *User) (*User, error)
 	UpdateUser(context.Context, *User) (*User, error)
 	DeleteUser(context.Context, *User) (*User, error)
-	CreateImage(context.Context, *Image) (*Image, error)
+	CreateImage(context.Context, *ImageAuthRequest) (*Image, error)
 	ReadImage(context.Context, *Image) (*Image, error)
-	SetDescriptionImage(context.Context, *Image) (*Image, error)
-	UpvoteImage(context.Context, *Image) (*Image, error)
-	DownvoteImage(context.Context, *Image) (*Image, error)
-	DeleteImage(context.Context, *Image) (*Image, error)
+	GetRandomImage(context.Context, *Empty) (*Image, error)
+	SetDescriptionImage(context.Context, *ImageAuthRequest) (*Image, error)
+	UpvoteImage(context.Context, *ImageAuthRequest) (*Image, error)
+	DownvoteImage(context.Context, *ImageAuthRequest) (*Image, error)
+	DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error)
 	mustEmbedUnimplementedBotDBServer()
 }
 
@@ -165,22 +176,25 @@ func (UnimplementedBotDBServer) UpdateUser(context.Context, *User) (*User, error
 func (UnimplementedBotDBServer) DeleteUser(context.Context, *User) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-func (UnimplementedBotDBServer) CreateImage(context.Context, *Image) (*Image, error) {
+func (UnimplementedBotDBServer) CreateImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateImage not implemented")
 }
 func (UnimplementedBotDBServer) ReadImage(context.Context, *Image) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadImage not implemented")
 }
-func (UnimplementedBotDBServer) SetDescriptionImage(context.Context, *Image) (*Image, error) {
+func (UnimplementedBotDBServer) GetRandomImage(context.Context, *Empty) (*Image, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRandomImage not implemented")
+}
+func (UnimplementedBotDBServer) SetDescriptionImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetDescriptionImage not implemented")
 }
-func (UnimplementedBotDBServer) UpvoteImage(context.Context, *Image) (*Image, error) {
+func (UnimplementedBotDBServer) UpvoteImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpvoteImage not implemented")
 }
-func (UnimplementedBotDBServer) DownvoteImage(context.Context, *Image) (*Image, error) {
+func (UnimplementedBotDBServer) DownvoteImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownvoteImage not implemented")
 }
-func (UnimplementedBotDBServer) DeleteImage(context.Context, *Image) (*Image, error) {
+func (UnimplementedBotDBServer) DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteImage not implemented")
 }
 func (UnimplementedBotDBServer) mustEmbedUnimplementedBotDBServer() {}
@@ -269,7 +283,7 @@ func _BotDB_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 func _BotDB_CreateImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Image)
+	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -281,7 +295,7 @@ func _BotDB_CreateImage_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/ozon.dev.homework.api.BotDB/CreateImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).CreateImage(ctx, req.(*Image))
+		return srv.(BotDBServer).CreateImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -304,8 +318,26 @@ func _BotDB_ReadImage_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BotDB_GetRandomImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BotDBServer).GetRandomImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ozon.dev.homework.api.BotDB/GetRandomImage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BotDBServer).GetRandomImage(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _BotDB_SetDescriptionImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Image)
+	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -317,13 +349,13 @@ func _BotDB_SetDescriptionImage_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/ozon.dev.homework.api.BotDB/SetDescriptionImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).SetDescriptionImage(ctx, req.(*Image))
+		return srv.(BotDBServer).SetDescriptionImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _BotDB_UpvoteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Image)
+	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -335,13 +367,13 @@ func _BotDB_UpvoteImage_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/ozon.dev.homework.api.BotDB/UpvoteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).UpvoteImage(ctx, req.(*Image))
+		return srv.(BotDBServer).UpvoteImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _BotDB_DownvoteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Image)
+	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -353,13 +385,13 @@ func _BotDB_DownvoteImage_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/ozon.dev.homework.api.BotDB/DownvoteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).DownvoteImage(ctx, req.(*Image))
+		return srv.(BotDBServer).DownvoteImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _BotDB_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Image)
+	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -371,7 +403,7 @@ func _BotDB_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/ozon.dev.homework.api.BotDB/DeleteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).DeleteImage(ctx, req.(*Image))
+		return srv.(BotDBServer).DeleteImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -406,6 +438,10 @@ var BotDB_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReadImage",
 			Handler:    _BotDB_ReadImage_Handler,
+		},
+		{
+			MethodName: "GetRandomImage",
+			Handler:    _BotDB_GetRandomImage_Handler,
 		},
 		{
 			MethodName: "SetDescriptionImage",
