@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package ozon.dev.homework.api;
+option go_package = "gitlab.ozon.dev/anuramat/homework-1/api;api";
+
+
+message User {
+    int64 UserID = 1;
+    State State = 2;
+    string LastUpload = 3;
+    string LastDownload = 4;
+    repeated string Images = 5;
+    int64 LastGalleryIndex = 6;
+}
+
+message Image {
+    string FileID = 1;
+    string Description = 2;
+    int64 Upvotes = 3;
+    int64 Downvotes = 4;
+}
+
+enum State {
+    StartState = 0;
+	NoState = 1;
+	UploadImageInitState = 2;
+	UploadImageState = 3;
+	UploadDescriptionState = 4;
+	EditDescriptionState = 5;
+	RandomImageState = 6;
+	GalleryState = 7;
+}
+
+service BotDB {
+    rpc CreateUser(User) returns (User);
+    rpc ReadUser(User) returns (User);
+    rpc UpdateUser(User) returns (User);
+    rpc DeleteUser(User) returns (User);
+
+    rpc CreateImage(Image) returns (Image);
+    rpc ReadImage(Image) returns (Image);
+    rpc SetDescriptionImage(Image) returns (Image);
+    rpc UpvoteImage(Image) returns (Image);
+    rpc DownvoteImage(Image) returns (Image);
+    rpc DeleteImage(Image) returns (Image);
+}
+
+message Response {}
