@@ -16,16 +16,18 @@ import (
 )
 
 const (
-	port_grpc   = ":51234"
-	port_rest   = ":5123"
-	n_jobs      = 10
-	rpc_timeout = 500 * time.Millisecond
+	port_grpc    = ":51234"
+	port_rest    = ":5123"
+	port_swagger = ":8080"
+	n_jobs       = 10
+	rpc_timeout  = 500 * time.Millisecond
 )
 
 func main() {
 	log.Println("Starting in-memory storage")
 	go start_rest()
-	start_grpc()
+	go start_grpc()
+	log.Panicln(http.ListenAndServe(port_swagger, http.FileServer(http.Dir("api/"))))
 }
 
 func start_grpc() {
