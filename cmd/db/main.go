@@ -24,8 +24,8 @@ const (
 
 func main() {
 	log.Println("Starting in-memory storage")
+	go start_rest()
 	start_grpc()
-	start_rest()
 }
 
 func start_grpc() {

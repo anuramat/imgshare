@@ -453,7 +453,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/CreateUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/CreateUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/CreateUser", runtime.WithHTTPPathPattern("/api.BotDB/CreateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -478,7 +478,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/ReadUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/ReadUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/ReadUser", runtime.WithHTTPPathPattern("/api.BotDB/ReadUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -503,7 +503,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/UpdateUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/UpdateUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/UpdateUser", runtime.WithHTTPPathPattern("/api.BotDB/UpdateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -528,7 +528,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/DeleteUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/DeleteUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/DeleteUser", runtime.WithHTTPPathPattern("/api.BotDB/DeleteUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -553,7 +553,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/CreateImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/CreateImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/CreateImage", runtime.WithHTTPPathPattern("/api.BotDB/CreateImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -578,7 +578,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/ReadImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/ReadImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/ReadImage", runtime.WithHTTPPathPattern("/api.BotDB/ReadImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -603,7 +603,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/GetRandomImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/GetRandomImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/GetRandomImage", runtime.WithHTTPPathPattern("/api.BotDB/GetRandomImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -628,7 +628,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/SetDescriptionImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/SetDescriptionImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/SetDescriptionImage", runtime.WithHTTPPathPattern("/api.BotDB/SetDescriptionImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -653,7 +653,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/UpvoteImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/UpvoteImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/UpvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/UpvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -678,7 +678,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/DownvoteImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/DownvoteImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/DownvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/DownvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -703,7 +703,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/DeleteImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/DeleteImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/DeleteImage", runtime.WithHTTPPathPattern("/api.BotDB/DeleteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -728,7 +728,7 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/GetAllImages", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/GetAllImages"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/GetAllImages", runtime.WithHTTPPathPattern("/api.BotDB/GetAllImages"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -792,7 +792,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/CreateUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/CreateUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/CreateUser", runtime.WithHTTPPathPattern("/api.BotDB/CreateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -814,7 +814,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/ReadUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/ReadUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/ReadUser", runtime.WithHTTPPathPattern("/api.BotDB/ReadUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -836,7 +836,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/UpdateUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/UpdateUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/UpdateUser", runtime.WithHTTPPathPattern("/api.BotDB/UpdateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -858,7 +858,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/DeleteUser", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/DeleteUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/DeleteUser", runtime.WithHTTPPathPattern("/api.BotDB/DeleteUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -880,7 +880,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/CreateImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/CreateImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/CreateImage", runtime.WithHTTPPathPattern("/api.BotDB/CreateImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -902,7 +902,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/ReadImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/ReadImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/ReadImage", runtime.WithHTTPPathPattern("/api.BotDB/ReadImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -924,7 +924,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/GetRandomImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/GetRandomImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/GetRandomImage", runtime.WithHTTPPathPattern("/api.BotDB/GetRandomImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -946,7 +946,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/SetDescriptionImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/SetDescriptionImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/SetDescriptionImage", runtime.WithHTTPPathPattern("/api.BotDB/SetDescriptionImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -968,7 +968,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/UpvoteImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/UpvoteImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/UpvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/UpvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -990,7 +990,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/DownvoteImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/DownvoteImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/DownvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/DownvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1012,7 +1012,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/DeleteImage", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/DeleteImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/DeleteImage", runtime.WithHTTPPathPattern("/api.BotDB/DeleteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1034,7 +1034,7 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/ozon.dev.homework.api.BotDB/GetAllImages", runtime.WithHTTPPathPattern("/ozon.dev.homework.api.BotDB/GetAllImages"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/GetAllImages", runtime.WithHTTPPathPattern("/api.BotDB/GetAllImages"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1054,29 +1054,29 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_BotDB_CreateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "CreateUser"}, ""))
+	pattern_BotDB_CreateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "CreateUser"}, ""))
 
-	pattern_BotDB_ReadUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "ReadUser"}, ""))
+	pattern_BotDB_ReadUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "ReadUser"}, ""))
 
-	pattern_BotDB_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "UpdateUser"}, ""))
+	pattern_BotDB_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "UpdateUser"}, ""))
 
-	pattern_BotDB_DeleteUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "DeleteUser"}, ""))
+	pattern_BotDB_DeleteUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "DeleteUser"}, ""))
 
-	pattern_BotDB_CreateImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "CreateImage"}, ""))
+	pattern_BotDB_CreateImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "CreateImage"}, ""))
 
-	pattern_BotDB_ReadImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "ReadImage"}, ""))
+	pattern_BotDB_ReadImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "ReadImage"}, ""))
 
-	pattern_BotDB_GetRandomImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "GetRandomImage"}, ""))
+	pattern_BotDB_GetRandomImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "GetRandomImage"}, ""))
 
-	pattern_BotDB_SetDescriptionImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "SetDescriptionImage"}, ""))
+	pattern_BotDB_SetDescriptionImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "SetDescriptionImage"}, ""))
 
-	pattern_BotDB_UpvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "UpvoteImage"}, ""))
+	pattern_BotDB_UpvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "UpvoteImage"}, ""))
 
-	pattern_BotDB_DownvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "DownvoteImage"}, ""))
+	pattern_BotDB_DownvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "DownvoteImage"}, ""))
 
-	pattern_BotDB_DeleteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "DeleteImage"}, ""))
+	pattern_BotDB_DeleteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "DeleteImage"}, ""))
 
-	pattern_BotDB_GetAllImages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ozon.dev.homework.api.BotDB", "GetAllImages"}, ""))
+	pattern_BotDB_GetAllImages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "GetAllImages"}, ""))
 )
 
 var (

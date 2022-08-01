@@ -47,7 +47,7 @@ func NewBotDBClient(cc grpc.ClientConnInterface) BotDBClient {
 
 func (c *botDBClient) CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *botDBClient) CreateUser(ctx context.Context, in *User, opts ...grpc.Cal
 
 func (c *botDBClient) ReadUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/ReadUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/ReadUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *botDBClient) ReadUser(ctx context.Context, in *User, opts ...grpc.CallO
 
 func (c *botDBClient) UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/UpdateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (c *botDBClient) UpdateUser(ctx context.Context, in *User, opts ...grpc.Cal
 
 func (c *botDBClient) DeleteUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/DeleteUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/DeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func (c *botDBClient) DeleteUser(ctx context.Context, in *User, opts ...grpc.Cal
 
 func (c *botDBClient) CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/CreateImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/CreateImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +92,7 @@ func (c *botDBClient) CreateImage(ctx context.Context, in *ImageAuthRequest, opt
 
 func (c *botDBClient) ReadImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/ReadImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/ReadImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func (c *botDBClient) ReadImage(ctx context.Context, in *Image, opts ...grpc.Cal
 
 func (c *botDBClient) GetRandomImage(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/GetRandomImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/GetRandomImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (c *botDBClient) GetRandomImage(ctx context.Context, in *Empty, opts ...grp
 
 func (c *botDBClient) SetDescriptionImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/SetDescriptionImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/SetDescriptionImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func (c *botDBClient) SetDescriptionImage(ctx context.Context, in *ImageAuthRequ
 
 func (c *botDBClient) UpvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/UpvoteImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/UpvoteImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (c *botDBClient) UpvoteImage(ctx context.Context, in *ImageAuthRequest, opt
 
 func (c *botDBClient) DownvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/DownvoteImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/DownvoteImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +137,7 @@ func (c *botDBClient) DownvoteImage(ctx context.Context, in *ImageAuthRequest, o
 
 func (c *botDBClient) DeleteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/DeleteImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/DeleteImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +146,7 @@ func (c *botDBClient) DeleteImage(ctx context.Context, in *ImageAuthRequest, opt
 
 func (c *botDBClient) GetAllImages(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Images, error) {
 	out := new(Images)
-	err := c.cc.Invoke(ctx, "/ozon.dev.homework.api.BotDB/GetAllImages", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.BotDB/GetAllImages", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +236,7 @@ func _BotDB_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/CreateUser",
+		FullMethod: "/api.BotDB/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).CreateUser(ctx, req.(*User))
@@ -254,7 +254,7 @@ func _BotDB_ReadUser_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/ReadUser",
+		FullMethod: "/api.BotDB/ReadUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).ReadUser(ctx, req.(*User))
@@ -272,7 +272,7 @@ func _BotDB_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/UpdateUser",
+		FullMethod: "/api.BotDB/UpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).UpdateUser(ctx, req.(*User))
@@ -290,7 +290,7 @@ func _BotDB_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/DeleteUser",
+		FullMethod: "/api.BotDB/DeleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).DeleteUser(ctx, req.(*User))
@@ -308,7 +308,7 @@ func _BotDB_CreateImage_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/CreateImage",
+		FullMethod: "/api.BotDB/CreateImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).CreateImage(ctx, req.(*ImageAuthRequest))
@@ -326,7 +326,7 @@ func _BotDB_ReadImage_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/ReadImage",
+		FullMethod: "/api.BotDB/ReadImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).ReadImage(ctx, req.(*Image))
@@ -344,7 +344,7 @@ func _BotDB_GetRandomImage_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/GetRandomImage",
+		FullMethod: "/api.BotDB/GetRandomImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).GetRandomImage(ctx, req.(*Empty))
@@ -362,7 +362,7 @@ func _BotDB_SetDescriptionImage_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/SetDescriptionImage",
+		FullMethod: "/api.BotDB/SetDescriptionImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).SetDescriptionImage(ctx, req.(*ImageAuthRequest))
@@ -380,7 +380,7 @@ func _BotDB_UpvoteImage_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/UpvoteImage",
+		FullMethod: "/api.BotDB/UpvoteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).UpvoteImage(ctx, req.(*ImageAuthRequest))
@@ -398,7 +398,7 @@ func _BotDB_DownvoteImage_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/DownvoteImage",
+		FullMethod: "/api.BotDB/DownvoteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).DownvoteImage(ctx, req.(*ImageAuthRequest))
@@ -416,7 +416,7 @@ func _BotDB_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/DeleteImage",
+		FullMethod: "/api.BotDB/DeleteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).DeleteImage(ctx, req.(*ImageAuthRequest))
@@ -434,7 +434,7 @@ func _BotDB_GetAllImages_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ozon.dev.homework.api.BotDB/GetAllImages",
+		FullMethod: "/api.BotDB/GetAllImages",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BotDBServer).GetAllImages(ctx, req.(*Empty))
@@ -446,7 +446,7 @@ func _BotDB_GetAllImages_Handler(srv interface{}, ctx context.Context, dec func(
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BotDB_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ozon.dev.homework.api.BotDB",
+	ServiceName: "api.BotDB",
 	HandlerType: (*BotDBServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -1,8 +1,7 @@
 syntax = "proto3";
 
-package ozon.dev.homework.api;
+package api;
 option go_package = "gitlab.ozon.dev/anuramat/homework-1/internal/api";
-
 
 message User {
     int64 UserID = 1;
