@@ -14,12 +14,13 @@ func main() {
 	log.Println("Starting bot...")
 
 	err := godotenv.Load()
-	if err != nil {
-		log.Println("Error loading .env file")
+	if err == nil {
+		log.Println("Reading .env file.")
 	}
+
 	token := os.Getenv("TELEGRAM_APITOKEN")
 	if len(token) == 0 {
-		log.Fatal("Telegram API token not found, exiting.")
+		log.Fatal("Telegram API token not found in environment, exiting.")
 	}
 
 	bot, err := tgbotapi.NewBotAPI(token)

@@ -27,7 +27,7 @@ func main() {
 	log.Println("Starting in-memory storage")
 	go start_rest()
 	go start_grpc()
-	log.Panicln(http.ListenAndServe(port_swagger, http.FileServer(http.Dir("api/"))))
+	log.Panicln(http.ListenAndServe(port_swagger, http.FileServer(http.Dir("swagger_ui"))))
 }
 
 func start_grpc() {

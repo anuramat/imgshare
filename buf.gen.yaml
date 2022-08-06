@@ -19,4 +19,4 @@ plugins:
       - allow_delete_body=true
   - name: openapiv2
     path: bin/protoc-gen-openapiv2
-    out: .
+    out: swagger

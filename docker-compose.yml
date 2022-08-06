@@ -1,15 +1,26 @@
 services:
   imgshare_bot:
     build: .
-    command: ./imgshare_bot
-    environment:
-      - DBHOST=localhost
-      - DBPORT=5432
-      - DBSSL=disable
+    command: ./bin/imgshare_bot
     env_file: .env
     depends_on:
       - db
-  postgresdb:
+      - imgshare
+  imgshare:
+    build: .
+    command: ./bin/imgshare
+    environment:
+      - DBHOST=imgshare_db
+      - DBPORT=5432
+      - DBSSL=disable
+    # ports:
+    #   - 8080:8080
+    #   - 5123:5123
+    #   - 51234:51234
+    env_file: .env
+    depends_on:
+      - db
+  imgshare_db:
     image: postgres
     restart: always
     env_file: .env
