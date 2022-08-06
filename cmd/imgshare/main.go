@@ -8,7 +8,7 @@ import (
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
-	"gitlab.ozon.dev/anuramat/homework-1/internal/db"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/imgshare"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -37,7 +37,7 @@ func start_grpc() {
 	}
 	interceptor := grpc.UnaryInterceptor(timeoutInterceptor)
 	s := grpc.NewServer(interceptor)
-	api.RegisterBotDBServer(s, db.NewServer(n_jobs))
+	api.RegisterBotDBServer(s, imgshare.NewServer(n_jobs))
 	reflection.Register(s)
 	if err := s.Serve(listener); err != nil {
 		log.Panicln("Error serving GRPC", err)

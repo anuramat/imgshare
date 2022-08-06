@@ -32,4 +32,4 @@ FROM alpine as runner
 RUN apk add libc6-compat
 WORKDIR /app
 # copy binaries
-COPY --from=builder /code/bin/bot /code/bin/db ./
+COPY --from=builder /code/bin/imgshare* ./

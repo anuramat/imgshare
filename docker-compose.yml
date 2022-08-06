@@ -1,7 +1,7 @@
 services:
-  main:
+  imgshare_bot:
     build: .
-    command: ./bin/bot
+    command: ./imgshare_bot
     environment:
       - DBHOST=localhost
       - DBPORT=5432

@@ -6,6 +6,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.1
 	github.com/joho/godotenv v1.4.0
+	github.com/pressly/goose/v3 v3.6.1
 	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e
 	google.golang.org/grpc v1.48.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
@@ -27,7 +28,6 @@ require (
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/paulmach/orb v0.7.1 // indirect
 	github.com/pierrec/lz4/v4 v4.1.15 // indirect
-	github.com/pressly/goose/v3 v3.6.1 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/ziutek/mymysql v1.5.4 // indirect

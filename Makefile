@@ -1,14 +1,8 @@
-.PHONY: runbot runddb build gen dep
-
-runbot: gen
-	go run cmd/bot/main.go
-
-rundb: gen
-	go run cmd/db/main.go
+.PHONY: build gen dep
 
 build: gen
-	go build -o bin/bot cmd/bot/main.go
-	go build -o bin/db cmd/db/main.go
+	go build -o bin/imgshare_bot cmd/imgshare_bot/main.go
+	go build -o bin/imgshare cmd/imgshare/main.go
 
 gen: dep
 	buf mod update
