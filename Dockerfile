@@ -8,9 +8,8 @@ FROM bufbuild/buf AS generator
 WORKDIR /generated
 # glibc compatibility, make
 RUN apk add libc6-compat make
-# copy makefile, buf files, proto files
-COPY Makefile ./
-COPY buf* ./
+# copy buf files, Makefile, proto files
+COPY buf.* Makefile ./
 COPY ./api ./api
 # copy proto binaries
 COPY --from=tool_builder /tools/bin/ ./bin/
