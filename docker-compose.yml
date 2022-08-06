@@ -1,0 +1,15 @@
+services:
+  main:
+    build: .
+    command: ./bin/bot
+    environment:
+      - DBHOST=localhost
+      - DBPORT=5432
+      - DBSSL=disable
+    env_file: .env
+    depends_on:
+      - db
+  postgresdb:
+    image: postgres
+    restart: always
+    env_file: .env
