@@ -27,7 +27,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Couldn't initialize bot:", err)
 	}
-	//bot.Debug = true
 
 	// start main loop
 	users := models.Users{}
