@@ -31,7 +31,7 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_BotDB_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -48,7 +48,7 @@ func request_BotDB_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler
 
 }
 
-func local_request_BotDB_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -65,7 +65,7 @@ func local_request_BotDB_CreateUser_0(ctx context.Context, marshaler runtime.Mar
 
 }
 
-func request_BotDB_ReadUser_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_ReadUser_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -82,7 +82,7 @@ func request_BotDB_ReadUser_0(ctx context.Context, marshaler runtime.Marshaler, 
 
 }
 
-func local_request_BotDB_ReadUser_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_ReadUser_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -99,7 +99,7 @@ func local_request_BotDB_ReadUser_0(ctx context.Context, marshaler runtime.Marsh
 
 }
 
-func request_BotDB_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -116,7 +116,7 @@ func request_BotDB_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler
 
 }
 
-func local_request_BotDB_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -133,7 +133,7 @@ func local_request_BotDB_UpdateUser_0(ctx context.Context, marshaler runtime.Mar
 
 }
 
-func request_BotDB_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -150,7 +150,7 @@ func request_BotDB_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler
 
 }
 
-func local_request_BotDB_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq User
 	var metadata runtime.ServerMetadata
 
@@ -167,7 +167,7 @@ func local_request_BotDB_DeleteUser_0(ctx context.Context, marshaler runtime.Mar
 
 }
 
-func request_BotDB_CreateImage_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_CreateImage_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -184,7 +184,7 @@ func request_BotDB_CreateImage_0(ctx context.Context, marshaler runtime.Marshale
 
 }
 
-func local_request_BotDB_CreateImage_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_CreateImage_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -201,7 +201,7 @@ func local_request_BotDB_CreateImage_0(ctx context.Context, marshaler runtime.Ma
 
 }
 
-func request_BotDB_ReadImage_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_ReadImage_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq Image
 	var metadata runtime.ServerMetadata
 
@@ -218,7 +218,7 @@ func request_BotDB_ReadImage_0(ctx context.Context, marshaler runtime.Marshaler,
 
 }
 
-func local_request_BotDB_ReadImage_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_ReadImage_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq Image
 	var metadata runtime.ServerMetadata
 
@@ -235,7 +235,7 @@ func local_request_BotDB_ReadImage_0(ctx context.Context, marshaler runtime.Mars
 
 }
 
-func request_BotDB_GetRandomImage_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_GetRandomImage_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq Empty
 	var metadata runtime.ServerMetadata
 
@@ -252,7 +252,7 @@ func request_BotDB_GetRandomImage_0(ctx context.Context, marshaler runtime.Marsh
 
 }
 
-func local_request_BotDB_GetRandomImage_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_GetRandomImage_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq Empty
 	var metadata runtime.ServerMetadata
 
@@ -269,7 +269,7 @@ func local_request_BotDB_GetRandomImage_0(ctx context.Context, marshaler runtime
 
 }
 
-func request_BotDB_SetDescriptionImage_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_SetDescriptionImage_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -286,7 +286,7 @@ func request_BotDB_SetDescriptionImage_0(ctx context.Context, marshaler runtime.
 
 }
 
-func local_request_BotDB_SetDescriptionImage_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_SetDescriptionImage_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -303,7 +303,7 @@ func local_request_BotDB_SetDescriptionImage_0(ctx context.Context, marshaler ru
 
 }
 
-func request_BotDB_UpvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_UpvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -320,7 +320,7 @@ func request_BotDB_UpvoteImage_0(ctx context.Context, marshaler runtime.Marshale
 
 }
 
-func local_request_BotDB_UpvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_UpvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -337,7 +337,7 @@ func local_request_BotDB_UpvoteImage_0(ctx context.Context, marshaler runtime.Ma
 
 }
 
-func request_BotDB_DownvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_DownvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -354,7 +354,7 @@ func request_BotDB_DownvoteImage_0(ctx context.Context, marshaler runtime.Marsha
 
 }
 
-func local_request_BotDB_DownvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_DownvoteImage_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -371,7 +371,7 @@ func local_request_BotDB_DownvoteImage_0(ctx context.Context, marshaler runtime.
 
 }
 
-func request_BotDB_DeleteImage_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_DeleteImage_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -388,7 +388,7 @@ func request_BotDB_DeleteImage_0(ctx context.Context, marshaler runtime.Marshale
 
 }
 
-func local_request_BotDB_DeleteImage_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_DeleteImage_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ImageAuthRequest
 	var metadata runtime.ServerMetadata
 
@@ -405,7 +405,7 @@ func local_request_BotDB_DeleteImage_0(ctx context.Context, marshaler runtime.Ma
 
 }
 
-func request_BotDB_GetAllImages_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_ImgShare_GetAllImages_0(ctx context.Context, marshaler runtime.Marshaler, client ImgShareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq Page
 	var metadata runtime.ServerMetadata
 
@@ -422,7 +422,7 @@ func request_BotDB_GetAllImages_0(ctx context.Context, marshaler runtime.Marshal
 
 }
 
-func local_request_BotDB_GetAllImages_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_ImgShare_GetAllImages_0(ctx context.Context, marshaler runtime.Marshaler, server ImgShareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq Page
 	var metadata runtime.ServerMetadata
 
@@ -439,13 +439,13 @@ func local_request_BotDB_GetAllImages_0(ctx context.Context, marshaler runtime.M
 
 }
 
-// RegisterBotDBHandlerServer registers the http handlers for service BotDB to "mux".
-// UnaryRPC     :call BotDBServer directly.
+// RegisterImgShareHandlerServer registers the http handlers for service ImgShare to "mux".
+// UnaryRPC     :call ImgShareServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterBotDBHandlerFromEndpoint instead.
-func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, server BotDBServer) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterImgShareHandlerFromEndpoint instead.
+func RegisterImgShareHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ImgShareServer) error {
 
-	mux.Handle("POST", pattern_BotDB_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -453,12 +453,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/CreateUser", runtime.WithHTTPPathPattern("/api.BotDB/CreateUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/CreateUser", runtime.WithHTTPPathPattern("/api.ImgShare/CreateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_CreateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_CreateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -466,11 +466,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_ReadUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_ReadUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -478,12 +478,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/ReadUser", runtime.WithHTTPPathPattern("/api.BotDB/ReadUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/ReadUser", runtime.WithHTTPPathPattern("/api.ImgShare/ReadUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_ReadUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_ReadUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -491,11 +491,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_ReadUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_ReadUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_UpdateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_UpdateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -503,12 +503,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/UpdateUser", runtime.WithHTTPPathPattern("/api.BotDB/UpdateUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/UpdateUser", runtime.WithHTTPPathPattern("/api.ImgShare/UpdateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_UpdateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_UpdateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -516,11 +516,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_UpdateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_UpdateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -528,12 +528,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/DeleteUser", runtime.WithHTTPPathPattern("/api.BotDB/DeleteUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/DeleteUser", runtime.WithHTTPPathPattern("/api.ImgShare/DeleteUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_DeleteUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_DeleteUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -541,11 +541,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_CreateImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_CreateImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -553,12 +553,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/CreateImage", runtime.WithHTTPPathPattern("/api.BotDB/CreateImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/CreateImage", runtime.WithHTTPPathPattern("/api.ImgShare/CreateImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_CreateImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_CreateImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -566,11 +566,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_CreateImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_CreateImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_ReadImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_ReadImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -578,12 +578,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/ReadImage", runtime.WithHTTPPathPattern("/api.BotDB/ReadImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/ReadImage", runtime.WithHTTPPathPattern("/api.ImgShare/ReadImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_ReadImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_ReadImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -591,11 +591,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_ReadImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_ReadImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_GetRandomImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_GetRandomImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -603,12 +603,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/GetRandomImage", runtime.WithHTTPPathPattern("/api.BotDB/GetRandomImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/GetRandomImage", runtime.WithHTTPPathPattern("/api.ImgShare/GetRandomImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_GetRandomImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_GetRandomImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -616,11 +616,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_GetRandomImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_GetRandomImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_SetDescriptionImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_SetDescriptionImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -628,12 +628,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/SetDescriptionImage", runtime.WithHTTPPathPattern("/api.BotDB/SetDescriptionImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/SetDescriptionImage", runtime.WithHTTPPathPattern("/api.ImgShare/SetDescriptionImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_SetDescriptionImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_SetDescriptionImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -641,11 +641,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_SetDescriptionImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_SetDescriptionImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_UpvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_UpvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -653,12 +653,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/UpvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/UpvoteImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/UpvoteImage", runtime.WithHTTPPathPattern("/api.ImgShare/UpvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_UpvoteImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_UpvoteImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -666,11 +666,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_UpvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_UpvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_DownvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_DownvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -678,12 +678,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/DownvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/DownvoteImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/DownvoteImage", runtime.WithHTTPPathPattern("/api.ImgShare/DownvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_DownvoteImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_DownvoteImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -691,11 +691,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_DownvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_DownvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_DeleteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_DeleteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -703,12 +703,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/DeleteImage", runtime.WithHTTPPathPattern("/api.BotDB/DeleteImage"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/DeleteImage", runtime.WithHTTPPathPattern("/api.ImgShare/DeleteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_DeleteImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_DeleteImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -716,11 +716,11 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_DeleteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_DeleteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_GetAllImages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_GetAllImages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -728,12 +728,12 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.BotDB/GetAllImages", runtime.WithHTTPPathPattern("/api.BotDB/GetAllImages"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.ImgShare/GetAllImages", runtime.WithHTTPPathPattern("/api.ImgShare/GetAllImages"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BotDB_GetAllImages_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ImgShare_GetAllImages_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -741,16 +741,16 @@ func RegisterBotDBHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 			return
 		}
 
-		forward_BotDB_GetAllImages_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_GetAllImages_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterBotDBHandlerFromEndpoint is same as RegisterBotDBHandler but
+// RegisterImgShareHandlerFromEndpoint is same as RegisterImgShareHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterBotDBHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterImgShareHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -770,283 +770,283 @@ func RegisterBotDBHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux
 		}()
 	}()
 
-	return RegisterBotDBHandler(ctx, mux, conn)
+	return RegisterImgShareHandler(ctx, mux, conn)
 }
 
-// RegisterBotDBHandler registers the http handlers for service BotDB to "mux".
+// RegisterImgShareHandler registers the http handlers for service ImgShare to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterBotDBHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterBotDBHandlerClient(ctx, mux, NewBotDBClient(conn))
+func RegisterImgShareHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterImgShareHandlerClient(ctx, mux, NewImgShareClient(conn))
 }
 
-// RegisterBotDBHandlerClient registers the http handlers for service BotDB
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "BotDBClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "BotDBClient"
+// RegisterImgShareHandlerClient registers the http handlers for service ImgShare
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "ImgShareClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "ImgShareClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "BotDBClient" to call the correct interceptors.
-func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, client BotDBClient) error {
+// "ImgShareClient" to call the correct interceptors.
+func RegisterImgShareHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ImgShareClient) error {
 
-	mux.Handle("POST", pattern_BotDB_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/CreateUser", runtime.WithHTTPPathPattern("/api.BotDB/CreateUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/CreateUser", runtime.WithHTTPPathPattern("/api.ImgShare/CreateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_CreateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_CreateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_ReadUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_ReadUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/ReadUser", runtime.WithHTTPPathPattern("/api.BotDB/ReadUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/ReadUser", runtime.WithHTTPPathPattern("/api.ImgShare/ReadUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_ReadUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_ReadUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_ReadUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_ReadUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_UpdateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_UpdateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/UpdateUser", runtime.WithHTTPPathPattern("/api.BotDB/UpdateUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/UpdateUser", runtime.WithHTTPPathPattern("/api.ImgShare/UpdateUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_UpdateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_UpdateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_UpdateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_UpdateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/DeleteUser", runtime.WithHTTPPathPattern("/api.BotDB/DeleteUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/DeleteUser", runtime.WithHTTPPathPattern("/api.ImgShare/DeleteUser"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_DeleteUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_DeleteUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_CreateImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_CreateImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/CreateImage", runtime.WithHTTPPathPattern("/api.BotDB/CreateImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/CreateImage", runtime.WithHTTPPathPattern("/api.ImgShare/CreateImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_CreateImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_CreateImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_CreateImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_CreateImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_ReadImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_ReadImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/ReadImage", runtime.WithHTTPPathPattern("/api.BotDB/ReadImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/ReadImage", runtime.WithHTTPPathPattern("/api.ImgShare/ReadImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_ReadImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_ReadImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_ReadImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_ReadImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_GetRandomImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_GetRandomImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/GetRandomImage", runtime.WithHTTPPathPattern("/api.BotDB/GetRandomImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/GetRandomImage", runtime.WithHTTPPathPattern("/api.ImgShare/GetRandomImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_GetRandomImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_GetRandomImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_GetRandomImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_GetRandomImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_SetDescriptionImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_SetDescriptionImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/SetDescriptionImage", runtime.WithHTTPPathPattern("/api.BotDB/SetDescriptionImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/SetDescriptionImage", runtime.WithHTTPPathPattern("/api.ImgShare/SetDescriptionImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_SetDescriptionImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_SetDescriptionImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_SetDescriptionImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_SetDescriptionImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_UpvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_UpvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/UpvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/UpvoteImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/UpvoteImage", runtime.WithHTTPPathPattern("/api.ImgShare/UpvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_UpvoteImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_UpvoteImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_UpvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_UpvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_DownvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_DownvoteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/DownvoteImage", runtime.WithHTTPPathPattern("/api.BotDB/DownvoteImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/DownvoteImage", runtime.WithHTTPPathPattern("/api.ImgShare/DownvoteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_DownvoteImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_DownvoteImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_DownvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_DownvoteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_DeleteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_DeleteImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/DeleteImage", runtime.WithHTTPPathPattern("/api.BotDB/DeleteImage"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/DeleteImage", runtime.WithHTTPPathPattern("/api.ImgShare/DeleteImage"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_DeleteImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_DeleteImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_DeleteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_DeleteImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_BotDB_GetAllImages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ImgShare_GetAllImages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.BotDB/GetAllImages", runtime.WithHTTPPathPattern("/api.BotDB/GetAllImages"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/api.ImgShare/GetAllImages", runtime.WithHTTPPathPattern("/api.ImgShare/GetAllImages"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BotDB_GetAllImages_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ImgShare_GetAllImages_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BotDB_GetAllImages_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ImgShare_GetAllImages_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1054,53 +1054,53 @@ func RegisterBotDBHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_BotDB_CreateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "CreateUser"}, ""))
+	pattern_ImgShare_CreateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "CreateUser"}, ""))
 
-	pattern_BotDB_ReadUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "ReadUser"}, ""))
+	pattern_ImgShare_ReadUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "ReadUser"}, ""))
 
-	pattern_BotDB_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "UpdateUser"}, ""))
+	pattern_ImgShare_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "UpdateUser"}, ""))
 
-	pattern_BotDB_DeleteUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "DeleteUser"}, ""))
+	pattern_ImgShare_DeleteUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "DeleteUser"}, ""))
 
-	pattern_BotDB_CreateImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "CreateImage"}, ""))
+	pattern_ImgShare_CreateImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "CreateImage"}, ""))
 
-	pattern_BotDB_ReadImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "ReadImage"}, ""))
+	pattern_ImgShare_ReadImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "ReadImage"}, ""))
 
-	pattern_BotDB_GetRandomImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "GetRandomImage"}, ""))
+	pattern_ImgShare_GetRandomImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "GetRandomImage"}, ""))
 
-	pattern_BotDB_SetDescriptionImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "SetDescriptionImage"}, ""))
+	pattern_ImgShare_SetDescriptionImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "SetDescriptionImage"}, ""))
 
-	pattern_BotDB_UpvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "UpvoteImage"}, ""))
+	pattern_ImgShare_UpvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "UpvoteImage"}, ""))
 
-	pattern_BotDB_DownvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "DownvoteImage"}, ""))
+	pattern_ImgShare_DownvoteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "DownvoteImage"}, ""))
 
-	pattern_BotDB_DeleteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "DeleteImage"}, ""))
+	pattern_ImgShare_DeleteImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "DeleteImage"}, ""))
 
-	pattern_BotDB_GetAllImages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.BotDB", "GetAllImages"}, ""))
+	pattern_ImgShare_GetAllImages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api.ImgShare", "GetAllImages"}, ""))
 )
 
 var (
-	forward_BotDB_CreateUser_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_CreateUser_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_ReadUser_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_ReadUser_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_UpdateUser_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_UpdateUser_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_DeleteUser_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_DeleteUser_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_CreateImage_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_CreateImage_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_ReadImage_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_ReadImage_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_GetRandomImage_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_GetRandomImage_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_SetDescriptionImage_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_SetDescriptionImage_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_UpvoteImage_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_UpvoteImage_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_DownvoteImage_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_DownvoteImage_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_DeleteImage_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_DeleteImage_0 = runtime.ForwardResponseMessage
 
-	forward_BotDB_GetAllImages_0 = runtime.ForwardResponseMessage
+	forward_ImgShare_GetAllImages_0 = runtime.ForwardResponseMessage
 )

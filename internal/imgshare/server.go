@@ -11,7 +11,7 @@ import (
 
 type Server struct {
 	messageFiles MessageFiles
-	api.UnimplementedBotDBServer
+	api.UnimplementedImgShareServer
 	pool   chan struct{}
 	DBPool *pgxpool.Pool
 }

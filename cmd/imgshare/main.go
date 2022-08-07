@@ -41,7 +41,7 @@ func start_grpc() {
 		log.Panicln(err)
 	}
 	defer imgshare_server.DBPool.Close()
-	api.RegisterBotDBServer(grpc_server, imgshare_server)
+	api.RegisterImgShareServer(grpc_server, imgshare_server)
 	reflection.Register(grpc_server)
 	if err := grpc_server.Serve(listener); err != nil {
 		log.Panicln("Error serving GRPC", err)
@@ -51,7 +51,7 @@ func start_grpc() {
 func start_rest() {
 	mux := runtime.NewServeMux()
 	dialoption := grpc.WithTransportCredentials(insecure.NewCredentials())
-	err := api.RegisterBotDBHandlerFromEndpoint(context.Background(), mux, port_grpc, []grpc.DialOption{dialoption})
+	err := api.RegisterImgShareHandlerFromEndpoint(context.Background(), mux, port_grpc, []grpc.DialOption{dialoption})
 	if err != nil {
 		log.Panicln("Error connecting gateway to GRPC", err)
 	}

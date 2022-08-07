@@ -18,10 +18,10 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// BotDBClient is the client API for BotDB service.
+// ImgShareClient is the client API for ImgShare service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type BotDBClient interface {
+type ImgShareClient interface {
 	CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
 	ReadUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
 	UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
@@ -37,126 +37,126 @@ type BotDBClient interface {
 	GetAllImages(ctx context.Context, in *Page, opts ...grpc.CallOption) (*Images, error)
 }
 
-type botDBClient struct {
+type imgShareClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewBotDBClient(cc grpc.ClientConnInterface) BotDBClient {
-	return &botDBClient{cc}
+func NewImgShareClient(cc grpc.ClientConnInterface) ImgShareClient {
+	return &imgShareClient{cc}
 }
 
-func (c *botDBClient) CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
+func (c *imgShareClient) CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.BotDB/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) ReadUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
+func (c *imgShareClient) ReadUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.BotDB/ReadUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/ReadUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
+func (c *imgShareClient) UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.BotDB/UpdateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) DeleteUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
+func (c *imgShareClient) DeleteUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.BotDB/DeleteUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/DeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
+func (c *imgShareClient) CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/api.BotDB/CreateImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/CreateImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) ReadImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
+func (c *imgShareClient) ReadImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/api.BotDB/ReadImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/ReadImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) GetRandomImage(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Image, error) {
+func (c *imgShareClient) GetRandomImage(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/api.BotDB/GetRandomImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/GetRandomImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) SetDescriptionImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
+func (c *imgShareClient) SetDescriptionImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/api.BotDB/SetDescriptionImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/SetDescriptionImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) UpvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
+func (c *imgShareClient) UpvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/api.BotDB/UpvoteImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/UpvoteImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) DownvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
+func (c *imgShareClient) DownvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
 	out := new(Image)
-	err := c.cc.Invoke(ctx, "/api.BotDB/DownvoteImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/DownvoteImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) DeleteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *imgShareClient) DeleteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/api.BotDB/DeleteImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/DeleteImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *botDBClient) GetAllImages(ctx context.Context, in *Page, opts ...grpc.CallOption) (*Images, error) {
+func (c *imgShareClient) GetAllImages(ctx context.Context, in *Page, opts ...grpc.CallOption) (*Images, error) {
 	out := new(Images)
-	err := c.cc.Invoke(ctx, "/api.BotDB/GetAllImages", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/GetAllImages", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// BotDBServer is the server API for BotDB service.
-// All implementations must embed UnimplementedBotDBServer
+// ImgShareServer is the server API for ImgShare service.
+// All implementations must embed UnimplementedImgShareServer
 // for forward compatibility
-type BotDBServer interface {
+type ImgShareServer interface {
 	CreateUser(context.Context, *User) (*User, error)
 	ReadUser(context.Context, *User) (*User, error)
 	UpdateUser(context.Context, *User) (*User, error)
@@ -170,332 +170,332 @@ type BotDBServer interface {
 	DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error)
 	// HW-2 requirement
 	GetAllImages(context.Context, *Page) (*Images, error)
-	mustEmbedUnimplementedBotDBServer()
+	mustEmbedUnimplementedImgShareServer()
 }
 
-// UnimplementedBotDBServer must be embedded to have forward compatible implementations.
-type UnimplementedBotDBServer struct {
+// UnimplementedImgShareServer must be embedded to have forward compatible implementations.
+type UnimplementedImgShareServer struct {
 }
 
-func (UnimplementedBotDBServer) CreateUser(context.Context, *User) (*User, error) {
+func (UnimplementedImgShareServer) CreateUser(context.Context, *User) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-func (UnimplementedBotDBServer) ReadUser(context.Context, *User) (*User, error) {
+func (UnimplementedImgShareServer) ReadUser(context.Context, *User) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadUser not implemented")
 }
-func (UnimplementedBotDBServer) UpdateUser(context.Context, *User) (*User, error) {
+func (UnimplementedImgShareServer) UpdateUser(context.Context, *User) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
-func (UnimplementedBotDBServer) DeleteUser(context.Context, *User) (*User, error) {
+func (UnimplementedImgShareServer) DeleteUser(context.Context, *User) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-func (UnimplementedBotDBServer) CreateImage(context.Context, *ImageAuthRequest) (*Image, error) {
+func (UnimplementedImgShareServer) CreateImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateImage not implemented")
 }
-func (UnimplementedBotDBServer) ReadImage(context.Context, *Image) (*Image, error) {
+func (UnimplementedImgShareServer) ReadImage(context.Context, *Image) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadImage not implemented")
 }
-func (UnimplementedBotDBServer) GetRandomImage(context.Context, *Empty) (*Image, error) {
+func (UnimplementedImgShareServer) GetRandomImage(context.Context, *Empty) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRandomImage not implemented")
 }
-func (UnimplementedBotDBServer) SetDescriptionImage(context.Context, *ImageAuthRequest) (*Image, error) {
+func (UnimplementedImgShareServer) SetDescriptionImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetDescriptionImage not implemented")
 }
-func (UnimplementedBotDBServer) UpvoteImage(context.Context, *ImageAuthRequest) (*Image, error) {
+func (UnimplementedImgShareServer) UpvoteImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpvoteImage not implemented")
 }
-func (UnimplementedBotDBServer) DownvoteImage(context.Context, *ImageAuthRequest) (*Image, error) {
+func (UnimplementedImgShareServer) DownvoteImage(context.Context, *ImageAuthRequest) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownvoteImage not implemented")
 }
-func (UnimplementedBotDBServer) DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error) {
+func (UnimplementedImgShareServer) DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteImage not implemented")
 }
-func (UnimplementedBotDBServer) GetAllImages(context.Context, *Page) (*Images, error) {
+func (UnimplementedImgShareServer) GetAllImages(context.Context, *Page) (*Images, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllImages not implemented")
 }
-func (UnimplementedBotDBServer) mustEmbedUnimplementedBotDBServer() {}
+func (UnimplementedImgShareServer) mustEmbedUnimplementedImgShareServer() {}
 
-// UnsafeBotDBServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to BotDBServer will
+// UnsafeImgShareServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ImgShareServer will
 // result in compilation errors.
-type UnsafeBotDBServer interface {
-	mustEmbedUnimplementedBotDBServer()
+type UnsafeImgShareServer interface {
+	mustEmbedUnimplementedImgShareServer()
 }
 
-func RegisterBotDBServer(s grpc.ServiceRegistrar, srv BotDBServer) {
-	s.RegisterService(&BotDB_ServiceDesc, srv)
+func RegisterImgShareServer(s grpc.ServiceRegistrar, srv ImgShareServer) {
+	s.RegisterService(&ImgShare_ServiceDesc, srv)
 }
 
-func _BotDB_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).CreateUser(ctx, in)
+		return srv.(ImgShareServer).CreateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/CreateUser",
+		FullMethod: "/api.ImgShare/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).CreateUser(ctx, req.(*User))
+		return srv.(ImgShareServer).CreateUser(ctx, req.(*User))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_ReadUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_ReadUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).ReadUser(ctx, in)
+		return srv.(ImgShareServer).ReadUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/ReadUser",
+		FullMethod: "/api.ImgShare/ReadUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).ReadUser(ctx, req.(*User))
+		return srv.(ImgShareServer).ReadUser(ctx, req.(*User))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).UpdateUser(ctx, in)
+		return srv.(ImgShareServer).UpdateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/UpdateUser",
+		FullMethod: "/api.ImgShare/UpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).UpdateUser(ctx, req.(*User))
+		return srv.(ImgShareServer).UpdateUser(ctx, req.(*User))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).DeleteUser(ctx, in)
+		return srv.(ImgShareServer).DeleteUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/DeleteUser",
+		FullMethod: "/api.ImgShare/DeleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).DeleteUser(ctx, req.(*User))
+		return srv.(ImgShareServer).DeleteUser(ctx, req.(*User))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_CreateImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_CreateImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).CreateImage(ctx, in)
+		return srv.(ImgShareServer).CreateImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/CreateImage",
+		FullMethod: "/api.ImgShare/CreateImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).CreateImage(ctx, req.(*ImageAuthRequest))
+		return srv.(ImgShareServer).CreateImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_ReadImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_ReadImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Image)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).ReadImage(ctx, in)
+		return srv.(ImgShareServer).ReadImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/ReadImage",
+		FullMethod: "/api.ImgShare/ReadImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).ReadImage(ctx, req.(*Image))
+		return srv.(ImgShareServer).ReadImage(ctx, req.(*Image))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_GetRandomImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_GetRandomImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).GetRandomImage(ctx, in)
+		return srv.(ImgShareServer).GetRandomImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/GetRandomImage",
+		FullMethod: "/api.ImgShare/GetRandomImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).GetRandomImage(ctx, req.(*Empty))
+		return srv.(ImgShareServer).GetRandomImage(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_SetDescriptionImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_SetDescriptionImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).SetDescriptionImage(ctx, in)
+		return srv.(ImgShareServer).SetDescriptionImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/SetDescriptionImage",
+		FullMethod: "/api.ImgShare/SetDescriptionImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).SetDescriptionImage(ctx, req.(*ImageAuthRequest))
+		return srv.(ImgShareServer).SetDescriptionImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_UpvoteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_UpvoteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).UpvoteImage(ctx, in)
+		return srv.(ImgShareServer).UpvoteImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/UpvoteImage",
+		FullMethod: "/api.ImgShare/UpvoteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).UpvoteImage(ctx, req.(*ImageAuthRequest))
+		return srv.(ImgShareServer).UpvoteImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_DownvoteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_DownvoteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).DownvoteImage(ctx, in)
+		return srv.(ImgShareServer).DownvoteImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/DownvoteImage",
+		FullMethod: "/api.ImgShare/DownvoteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).DownvoteImage(ctx, req.(*ImageAuthRequest))
+		return srv.(ImgShareServer).DownvoteImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ImageAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).DeleteImage(ctx, in)
+		return srv.(ImgShareServer).DeleteImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/DeleteImage",
+		FullMethod: "/api.ImgShare/DeleteImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).DeleteImage(ctx, req.(*ImageAuthRequest))
+		return srv.(ImgShareServer).DeleteImage(ctx, req.(*ImageAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BotDB_GetAllImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ImgShare_GetAllImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Page)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BotDBServer).GetAllImages(ctx, in)
+		return srv.(ImgShareServer).GetAllImages(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.BotDB/GetAllImages",
+		FullMethod: "/api.ImgShare/GetAllImages",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).GetAllImages(ctx, req.(*Page))
+		return srv.(ImgShareServer).GetAllImages(ctx, req.(*Page))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// BotDB_ServiceDesc is the grpc.ServiceDesc for BotDB service.
+// ImgShare_ServiceDesc is the grpc.ServiceDesc for ImgShare service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var BotDB_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.BotDB",
-	HandlerType: (*BotDBServer)(nil),
+var ImgShare_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.ImgShare",
+	HandlerType: (*ImgShareServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateUser",
-			Handler:    _BotDB_CreateUser_Handler,
+			Handler:    _ImgShare_CreateUser_Handler,
 		},
 		{
 			MethodName: "ReadUser",
-			Handler:    _BotDB_ReadUser_Handler,
+			Handler:    _ImgShare_ReadUser_Handler,
 		},
 		{
 			MethodName: "UpdateUser",
-			Handler:    _BotDB_UpdateUser_Handler,
+			Handler:    _ImgShare_UpdateUser_Handler,
 		},
 		{
 			MethodName: "DeleteUser",
-			Handler:    _BotDB_DeleteUser_Handler,
+			Handler:    _ImgShare_DeleteUser_Handler,
 		},
 		{
 			MethodName: "CreateImage",
-			Handler:    _BotDB_CreateImage_Handler,
+			Handler:    _ImgShare_CreateImage_Handler,
 		},
 		{
 			MethodName: "ReadImage",
-			Handler:    _BotDB_ReadImage_Handler,
+			Handler:    _ImgShare_ReadImage_Handler,
 		},
 		{
 			MethodName: "GetRandomImage",
-			Handler:    _BotDB_GetRandomImage_Handler,
+			Handler:    _ImgShare_GetRandomImage_Handler,
 		},
 		{
 			MethodName: "SetDescriptionImage",
-			Handler:    _BotDB_SetDescriptionImage_Handler,
+			Handler:    _ImgShare_SetDescriptionImage_Handler,
 		},
 		{
 			MethodName: "UpvoteImage",
-			Handler:    _BotDB_UpvoteImage_Handler,
+			Handler:    _ImgShare_UpvoteImage_Handler,
 		},
 		{
 			MethodName: "DownvoteImage",
-			Handler:    _BotDB_DownvoteImage_Handler,
+			Handler:    _ImgShare_DownvoteImage_Handler,
 		},
 		{
 			MethodName: "DeleteImage",
-			Handler:    _BotDB_DeleteImage_Handler,
+			Handler:    _ImgShare_DeleteImage_Handler,
 		},
 		{
 			MethodName: "GetAllImages",
-			Handler:    _BotDB_GetAllImages_Handler,
+			Handler:    _ImgShare_GetAllImages_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
