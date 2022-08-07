@@ -3,6 +3,7 @@ package imgshare
 import (
 	"context"
 	"errors"
+	"log"
 
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 )
@@ -104,7 +105,7 @@ func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (
 	return &api.Empty{}, nil
 }
 
-func (s *Server) GetAllImages(ctx context.Context, _ *api.Empty) (*api.Images, error) {
+func (s *Server) GetAllImages(ctx context.Context, page *api.Page) (*api.Images, error) {
 	// HW-2 requirement
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
@@ -115,12 +116,29 @@ func (s *Server) GetAllImages(ctx context.Context, _ *api.Empty) (*api.Images, e
 	default:
 	}
 
-	// // TODO pagination (change protobuf)
-	// images_slice := make([]*api.Image, number of images in db) // TODO
-	// i := 0
-	// // TODO fill images_slice
-	// return &api.Images{Image: images_slice}, nil
-	return nil, nil
+	sql := `SELECT images.fileid, images.description,
+	COUNT(*) FILTER (WHERE votes.upvote) as upvotes,
+	COUNT(*) FILTER (WHERE NOT votes.upvote) as downvotes
+	FROM images
+	LEFT JOIN votes ON images.fileid = votes.fileid
+	GROUP BY images.fileid
+	ORDER BY images.fileid
+	LIMIT $1
+	OFFSET $2;`
+	rows, err := s.dbPool.Query(ctx, sql, page.Limit, page.Offset)
+	if err != nil {
+		return nil, err
+	}
+
+	images_slice := make([]*api.Image, 0, page.Limit)
+	var img *api.Image
+	for rows.Next() {
+		img = &api.Image{}
+		rows.Scan(&img.FileID, &img.Description, &img.Upvotes, &img.Downvotes)
+		images_slice = append(images_slice, img)
+	}
+	log.Println(images_slice)
+	return &api.Images{Image: images_slice}, nil
 }
 
 func (s *Server) buildImage(ctx context.Context, fileID string) (result *api.Image, err error) {

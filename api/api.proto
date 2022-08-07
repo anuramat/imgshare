@@ -40,6 +40,11 @@ message Images {
     repeated Image Image = 1;
 }
 
+message Page {
+    int32 offset = 1;
+    int32 limit = 2;
+}
+
 service BotDB {
     rpc CreateUser(User) returns (User);
     rpc ReadUser(User) returns (User);
@@ -55,5 +60,5 @@ service BotDB {
     rpc DeleteImage(ImageAuthRequest) returns (Empty);
 
     // HW-2 requirement
-    rpc GetAllImages(Empty) returns (Images);
+    rpc GetAllImages(Page) returns (Images);
 }

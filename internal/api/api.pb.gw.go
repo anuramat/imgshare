@@ -406,7 +406,7 @@ func local_request_BotDB_DeleteImage_0(ctx context.Context, marshaler runtime.Ma
 }
 
 func request_BotDB_GetAllImages_0(ctx context.Context, marshaler runtime.Marshaler, client BotDBClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq Empty
+	var protoReq Page
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -423,7 +423,7 @@ func request_BotDB_GetAllImages_0(ctx context.Context, marshaler runtime.Marshal
 }
 
 func local_request_BotDB_GetAllImages_0(ctx context.Context, marshaler runtime.Marshaler, server BotDBServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq Empty
+	var protoReq Page
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)

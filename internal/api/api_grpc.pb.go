@@ -34,7 +34,7 @@ type BotDBClient interface {
 	DownvoteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
 	DeleteImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error)
 	// HW-2 requirement
-	GetAllImages(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Images, error)
+	GetAllImages(ctx context.Context, in *Page, opts ...grpc.CallOption) (*Images, error)
 }
 
 type botDBClient struct {
@@ -144,7 +144,7 @@ func (c *botDBClient) DeleteImage(ctx context.Context, in *ImageAuthRequest, opt
 	return out, nil
 }
 
-func (c *botDBClient) GetAllImages(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Images, error) {
+func (c *botDBClient) GetAllImages(ctx context.Context, in *Page, opts ...grpc.CallOption) (*Images, error) {
 	out := new(Images)
 	err := c.cc.Invoke(ctx, "/api.BotDB/GetAllImages", in, out, opts...)
 	if err != nil {
@@ -169,7 +169,7 @@ type BotDBServer interface {
 	DownvoteImage(context.Context, *ImageAuthRequest) (*Image, error)
 	DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error)
 	// HW-2 requirement
-	GetAllImages(context.Context, *Empty) (*Images, error)
+	GetAllImages(context.Context, *Page) (*Images, error)
 	mustEmbedUnimplementedBotDBServer()
 }
 
@@ -210,7 +210,7 @@ func (UnimplementedBotDBServer) DownvoteImage(context.Context, *ImageAuthRequest
 func (UnimplementedBotDBServer) DeleteImage(context.Context, *ImageAuthRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteImage not implemented")
 }
-func (UnimplementedBotDBServer) GetAllImages(context.Context, *Empty) (*Images, error) {
+func (UnimplementedBotDBServer) GetAllImages(context.Context, *Page) (*Images, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllImages not implemented")
 }
 func (UnimplementedBotDBServer) mustEmbedUnimplementedBotDBServer() {}
@@ -425,7 +425,7 @@ func _BotDB_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 func _BotDB_GetAllImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+	in := new(Page)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -437,7 +437,7 @@ func _BotDB_GetAllImages_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: "/api.BotDB/GetAllImages",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BotDBServer).GetAllImages(ctx, req.(*Empty))
+		return srv.(BotDBServer).GetAllImages(ctx, req.(*Page))
 	}
 	return interceptor(ctx, in, info, handler)
 }
