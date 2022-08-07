@@ -5,7 +5,6 @@ import (
 	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/joho/godotenv"
 	"gitlab.ozon.dev/anuramat/homework-1/internal"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 )
@@ -13,14 +12,9 @@ import (
 func main() {
 	log.Println("Starting bot...")
 
-	err := godotenv.Load()
-	if err == nil {
-		log.Println("Reading .env file.")
-	}
-
 	token := os.Getenv("TELEGRAM_APITOKEN")
 	if len(token) == 0 {
-		log.Fatal("Telegram API token not found in environment, exiting.")
+		log.Fatal("Telegram API token not found, exiting.")
 	}
 
 	bot, err := tgbotapi.NewBotAPI(token)

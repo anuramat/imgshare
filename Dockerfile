@@ -38,4 +38,4 @@ COPY ./swagger_ui/ ./swagger_ui/
 COPY --from=generator /generated/swagger/api/api.swagger.json ./swagger_ui/swagger.json
 # migration stuff
 COPY ./migrations ./migrations
-COPY migrate.sh ./
+COPY imgshare_entrypoint.sh ./

@@ -1,13 +1,15 @@
 -- +goose Up
 -- +goose StatementBegin
 CREATE TABLE images (
-    fileid varchar unique not null,
+    fileid varchar PRIMARY KEY,
+    userid bigint not null,
     description varchar
 );
 CREATE TABLE votes (
-    fileid varchar(256) not null,
+    fileid varchar not null,
     userid bigint not null, 
-    upvote boolean not null
+    upvote boolean not null,
+    PRIMARY KEY (fileid, userid)
 );
 -- +goose StatementEnd
 

@@ -1,37 +1,19 @@
 package imgshare
 
 import (
+	"context"
+	"os"
 	"sync"
 
+	"github.com/jackc/pgx/v4/pgxpool"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 )
 
 type Server struct {
-	users        Users
-	images       Images
 	messageFiles MessageFiles
 	api.UnimplementedBotDBServer
-	pool chan struct{}
-}
-
-type User struct {
-	*api.User
-	images []string
-}
-
-type Users struct {
-	mu   *sync.RWMutex
-	data map[int64]*User
-}
-
-type Image struct {
-	*api.Image
-	votes map[int64]bool
-}
-
-type Images struct {
-	mu   *sync.RWMutex
-	data map[string]*Image
+	pool   chan struct{}
+	dbPool *pgxpool.Pool
 }
 
 type MessageFiles struct {
@@ -39,19 +21,20 @@ type MessageFiles struct {
 	data map[int64]string
 }
 
-func NewServer(n_jobs int) (s *Server) {
+func NewServer(n_jobs int) (s *Server, err error) {
 	s = &Server{}
-	s.users = Users{&sync.RWMutex{}, make(map[int64]*User)}
-	s.images = Images{&sync.RWMutex{}, make(map[string]*Image)}
 	s.messageFiles = MessageFiles{&sync.RWMutex{}, make(map[int64]string)}
 	s.pool = make(chan struct{}, n_jobs)
+	s.dbPool, err = pgxpool.Connect(context.Background(), getDBURL())
 	return
 }
 
-func NewImage() Image {
-	return Image{&api.Image{}, make(map[int64]bool)}
-}
-
-func NewUser() User {
-	return User{&api.User{}, make([]string, 3)}
+func getDBURL() (url string) {
+	user := os.Getenv("POSTGRES_USER")
+	password := os.Getenv("POSTGRES_PASSWORD")
+	dbname := os.Getenv("POSTGRES_DB")
+	dbhost := os.Getenv("DBHOST")
+	dbport := os.Getenv("DBPORT")
+	url = "postgresql://" + user + ":" + password + "@" + dbhost + ":" + dbport + "/" + dbname
+	return url
 }

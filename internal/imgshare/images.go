@@ -17,14 +17,9 @@ func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (
 	default:
 	}
 
-	s.images.mu.Lock()
-	defer s.images.mu.Unlock()
-
-	new_image := NewImage()
-	new_image.Description = input.Image.Description
-	new_image.FileID = input.Image.FileID
-	s.images.data[input.Image.FileID] = &new_image
-	return new_image.Image, nil
+	sql := "INSERT INTO images (fileid, userid, description) VALUES ($1, $2, $3);"
+	s.dbPool.QueryRow(ctx, sql, input.Image.FileID, input.UserID, input.Image.Description)
+	return s.buildImage(ctx, input.Image.FileID)
 }
 
 func (s *Server) ReadImage(ctx context.Context, input *api.Image) (*api.Image, error) {
@@ -37,10 +32,7 @@ func (s *Server) ReadImage(ctx context.Context, input *api.Image) (*api.Image, e
 	default:
 	}
 
-	s.images.mu.RLock()
-	defer s.images.mu.RUnlock()
-
-	return s.buildImage(input.FileID)
+	return s.buildImage(ctx, input.FileID)
 }
 
 func (s *Server) GetRandomImage(ctx context.Context, _ *api.Empty) (*api.Image, error) {
@@ -53,54 +45,32 @@ func (s *Server) GetRandomImage(ctx context.Context, _ *api.Empty) (*api.Image, 
 	default:
 	}
 
-	s.images.mu.RLock()
-	defer s.images.mu.RUnlock()
+	// TODO get random fileID, put in fileID
+	// return s.buildImage(ctx, fileID)
+	return nil, nil
+}
 
-	fileID, err := s.getRandomImageID()
-	if err != nil {
-		return nil, err
+func (s *Server) upsertVoteImage(ctx context.Context, uid int64, fid string, vote bool) (*api.Image, error) {
+	s.pool <- struct{}{}
+	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
 	}
-	return s.buildImage(fileID)
+
+	sql := "INSERT INTO votes (fileid, userid, upvote) VALUES ($1, $2, $3) ON CONFLICT (fileid, userid) DO UPDATE SET upvote = $3;"
+	s.dbPool.QueryRow(ctx, sql, fid, uid, vote)
+	return s.buildImage(ctx, fid)
 }
 
 func (s *Server) UpvoteImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
-	s.pool <- struct{}{}
-	defer func() { <-s.pool }()
-
-	select {
-	case <-ctx.Done():
-		return nil, errors.New("timeout")
-	default:
-	}
-
-	s.images.mu.Lock()
-	defer s.images.mu.Unlock()
-
-	err := s.upvoteImage(input.UserID, input.Image.FileID)
-	if err != nil {
-		return nil, err
-	}
-	return s.buildImage(input.Image.FileID)
+	return s.upsertVoteImage(ctx, input.UserID, input.Image.FileID, true)
 }
 
 func (s *Server) DownvoteImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
-	s.pool <- struct{}{}
-	defer func() { <-s.pool }()
-
-	select {
-	case <-ctx.Done():
-		return nil, errors.New("timeout")
-	default:
-	}
-
-	s.images.mu.Lock()
-	defer s.images.mu.Unlock()
-
-	err := s.downvoteImage(input.UserID, input.Image.FileID)
-	if err != nil {
-		return nil, err
-	}
-	return s.buildImage(input.Image.FileID)
+	return s.upsertVoteImage(ctx, input.UserID, input.Image.FileID, false)
 }
 
 func (s *Server) SetDescriptionImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
@@ -113,17 +83,12 @@ func (s *Server) SetDescriptionImage(ctx context.Context, input *api.ImageAuthRe
 	default:
 	}
 
-	s.images.mu.Lock()
-	defer s.images.mu.Unlock()
-
-	if _, ok := s.images.data[input.Image.FileID]; !ok {
-		return nil, errors.New("image not found")
-	}
-	s.images.data[input.Image.FileID].Description = input.Image.Description
-	return s.buildImage(input.Image.FileID)
+	sql := "UPDATE images SET description = $1 WHERE fileid = $2 AND userid = $3;" // TODO check if updated
+	s.dbPool.QueryRow(ctx, sql, input.Image.Description, input.Image.FileID, input.UserID)
+	return s.buildImage(ctx, input.Image.FileID) // TODO return rows instead of building
 }
 
-func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (_ *api.Empty, err error) {
+func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Empty, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
 
@@ -133,25 +98,10 @@ func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (
 	default:
 	}
 
-	s.images.mu.Lock()
-	delete(s.images.data, input.Image.FileID)
-	s.images.mu.Unlock()
-
-	s.users.mu.Lock()
-	defer s.users.mu.Unlock()
-	user_images := s.users.data[input.UserID].images
-	idx := -1
-	for i, e := range user_images {
-		if e == input.Image.FileID {
-			idx = i
-			break
-		}
-	}
-	if idx == -1 {
-		return nil, errors.New("image not found in users gallery")
-	}
-	s.users.data[input.UserID].images = append(user_images[:idx], user_images[idx+1:]...)
-	return
+	sql_images := "DELETE FROM images WHERE fileid = $1 AND userid = $2;"
+	s.dbPool.QueryRow(ctx, sql_images, input.Image.FileID, input.UserID)
+	// TODO delete votes? only if the image itself was deleted
+	return &api.Empty{}, nil
 }
 
 func (s *Server) GetAllImages(ctx context.Context, _ *api.Empty) (*api.Images, error) {
@@ -165,14 +115,28 @@ func (s *Server) GetAllImages(ctx context.Context, _ *api.Empty) (*api.Images, e
 	default:
 	}
 
-	s.images.mu.Lock()
-	defer s.images.mu.Unlock()
+	// // TODO pagination (change protobuf)
+	// images_slice := make([]*api.Image, number of images in db) // TODO
+	// i := 0
+	// // TODO fill images_slice
+	// return &api.Images{Image: images_slice}, nil
+	return nil, nil
+}
 
-	images_slice := make([]*api.Image, len(s.images.data))
-	i := 0
-	for _, v := range s.images.data {
-		images_slice[i] = v.Image
-		i += 1
-	}
-	return &api.Images{Image: images_slice}, nil
+func (s *Server) buildImage(ctx context.Context, fileID string) (result *api.Image, err error) {
+	result = &api.Image{}
+
+	sql := "SELECT fileid, description FROM images WHERE fileid = $1;"
+	row := s.dbPool.QueryRow(ctx, sql, fileID)
+	row.Scan(&result.FileID, &result.Description)
+
+	sql_up := "SELECT COUNT(*) FROM votes WHERE fileid = $1 AND upvote = TRUE;"
+	row_up := s.dbPool.QueryRow(ctx, sql_up, fileID)
+	row_up.Scan(&result.Upvotes)
+
+	sql_down := "SELECT COUNT(*) FROM votes WHERE fileid = $1 and upvote = FALSE;"
+	row_down := s.dbPool.QueryRow(ctx, sql_down, fileID)
+	row_down.Scan(&result.Downvotes)
+
+	return
 }

@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -24,7 +25,6 @@ const (
 )
 
 func main() {
-	log.Println("Starting in-memory storage")
 	go start_rest()
 	go start_grpc()
 	log.Panicln(http.ListenAndServe(port_swagger, http.FileServer(http.Dir("swagger_ui"))))
@@ -36,10 +36,15 @@ func start_grpc() {
 		log.Panicln("Error listening on GRPC port", port_grpc, ":", err)
 	}
 	interceptor := grpc.UnaryInterceptor(timeoutInterceptor)
-	s := grpc.NewServer(interceptor)
-	api.RegisterBotDBServer(s, imgshare.NewServer(n_jobs))
-	reflection.Register(s)
-	if err := s.Serve(listener); err != nil {
+	grpc_server := grpc.NewServer(interceptor)
+	imgshare_server, err := imgshare.NewServer(n_jobs)
+	// TODO close db pool
+	if err != nil {
+		log.Panicln(err)
+	}
+	api.RegisterBotDBServer(grpc_server, imgshare_server)
+	reflection.Register(grpc_server)
+	if err := grpc_server.Serve(listener); err != nil {
 		log.Panicln("Error serving GRPC", err)
 	}
 }
@@ -69,4 +74,14 @@ func timeoutInterceptor(ctx context.Context, req interface{}, info *grpc.UnarySe
 	defer cancel()
 	resp, err = handler(ctx, req)
 	return
+}
+
+func getDBURVL() (url string) {
+	user := os.Getenv("POSTGRES_USER")
+	password := os.Getenv("POSTGRES_PASSWORD")
+	dbname := os.Getenv("POSTGRES_DB")
+	dbhost := os.Getenv("DBHOST")
+	dbport := os.Getenv("DBPORT")
+	url = "postgresql://" + user + ":" + password + "@" + dbhost + ":" + dbport + "/" + dbname
+	return url
 }

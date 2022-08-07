@@ -8,15 +8,15 @@ services:
       - imgshare
   imgshare:
     build: .
-    command: ./bin/imgshare
+    command: ./imgshare_entrypoint.sh
     environment:
       - DBHOST=imgshare_db
       - DBPORT=5432
       - DBSSL=disable
-    # ports:
-    #   - 8080:8080
-    #   - 5123:5123
-    #   - 51234:51234
+    ports:
+      - 8080:8080
+      - 5123:5123
+      - 51234:51234
     env_file: .env
     depends_on:
       - db
