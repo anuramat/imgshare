@@ -19,7 +19,7 @@ func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (
 	}
 
 	sql := "INSERT INTO images (fileid, userid, description) VALUES ($1, $2, $3);"
-	s.dbPool.QueryRow(ctx, sql, input.Image.FileID, input.UserID, input.Image.Description)
+	s.DBPool.QueryRow(ctx, sql, input.Image.FileID, input.UserID, input.Image.Description)
 	return s.buildImage(ctx, input.Image.FileID)
 }
 
@@ -62,7 +62,7 @@ func (s *Server) upsertVoteImage(ctx context.Context, uid int64, fid string, vot
 	}
 
 	sql := "INSERT INTO votes (fileid, userid, upvote) VALUES ($1, $2, $3) ON CONFLICT (fileid, userid) DO UPDATE SET upvote = $3;"
-	s.dbPool.QueryRow(ctx, sql, fid, uid, vote)
+	s.DBPool.QueryRow(ctx, sql, fid, uid, vote)
 	return s.buildImage(ctx, fid)
 }
 
@@ -85,7 +85,7 @@ func (s *Server) SetDescriptionImage(ctx context.Context, input *api.ImageAuthRe
 	}
 
 	sql := "UPDATE images SET description = $1 WHERE fileid = $2 AND userid = $3;" // TODO check if updated
-	s.dbPool.QueryRow(ctx, sql, input.Image.Description, input.Image.FileID, input.UserID)
+	s.DBPool.QueryRow(ctx, sql, input.Image.Description, input.Image.FileID, input.UserID)
 	return s.buildImage(ctx, input.Image.FileID) // TODO return rows instead of building
 }
 
@@ -100,7 +100,7 @@ func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (
 	}
 
 	sql_images := "DELETE FROM images WHERE fileid = $1 AND userid = $2;"
-	s.dbPool.QueryRow(ctx, sql_images, input.Image.FileID, input.UserID)
+	s.DBPool.QueryRow(ctx, sql_images, input.Image.FileID, input.UserID)
 	// TODO delete votes? only if the image itself was deleted
 	return &api.Empty{}, nil
 }
@@ -125,7 +125,7 @@ func (s *Server) GetAllImages(ctx context.Context, page *api.Page) (*api.Images,
 	ORDER BY images.fileid
 	LIMIT $1
 	OFFSET $2;`
-	rows, err := s.dbPool.Query(ctx, sql, page.Limit, page.Offset)
+	rows, err := s.DBPool.Query(ctx, sql, page.Limit, page.Offset)
 	if err != nil {
 		return nil, err
 	}
@@ -145,15 +145,15 @@ func (s *Server) buildImage(ctx context.Context, fileID string) (result *api.Ima
 	result = &api.Image{}
 
 	sql := "SELECT fileid, description FROM images WHERE fileid = $1;"
-	row := s.dbPool.QueryRow(ctx, sql, fileID)
+	row := s.DBPool.QueryRow(ctx, sql, fileID)
 	row.Scan(&result.FileID, &result.Description)
 
 	sql_up := "SELECT COUNT(*) FROM votes WHERE fileid = $1 AND upvote = TRUE;"
-	row_up := s.dbPool.QueryRow(ctx, sql_up, fileID)
+	row_up := s.DBPool.QueryRow(ctx, sql_up, fileID)
 	row_up.Scan(&result.Upvotes)
 
 	sql_down := "SELECT COUNT(*) FROM votes WHERE fileid = $1 and upvote = FALSE;"
-	row_down := s.dbPool.QueryRow(ctx, sql_down, fileID)
+	row_down := s.DBPool.QueryRow(ctx, sql_down, fileID)
 	row_down.Scan(&result.Downvotes)
 
 	return

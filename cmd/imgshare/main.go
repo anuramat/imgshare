@@ -37,10 +37,10 @@ func start_grpc() {
 	interceptor := grpc.UnaryInterceptor(timeoutInterceptor)
 	grpc_server := grpc.NewServer(interceptor)
 	imgshare_server, err := imgshare.NewServer(n_jobs)
-	// TODO close db pool
 	if err != nil {
 		log.Panicln(err)
 	}
+	defer imgshare_server.DBPool.Close()
 	api.RegisterBotDBServer(grpc_server, imgshare_server)
 	reflection.Register(grpc_server)
 	if err := grpc_server.Serve(listener); err != nil {

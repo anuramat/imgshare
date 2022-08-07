@@ -13,7 +13,7 @@ type Server struct {
 	messageFiles MessageFiles
 	api.UnimplementedBotDBServer
 	pool   chan struct{}
-	dbPool *pgxpool.Pool
+	DBPool *pgxpool.Pool
 }
 
 type MessageFiles struct {
@@ -25,7 +25,7 @@ func NewServer(n_jobs int) (s *Server, err error) {
 	s = &Server{}
 	s.messageFiles = MessageFiles{&sync.RWMutex{}, make(map[int64]string)}
 	s.pool = make(chan struct{}, n_jobs)
-	s.dbPool, err = pgxpool.Connect(context.Background(), getDBURL())
+	s.DBPool, err = pgxpool.Connect(context.Background(), getDBURL())
 	return
 }
 
