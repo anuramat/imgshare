@@ -4,7 +4,6 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -74,14 +73,4 @@ func timeoutInterceptor(ctx context.Context, req interface{}, info *grpc.UnarySe
 	defer cancel()
 	resp, err = handler(ctx, req)
 	return
-}
-
-func getDBURVL() (url string) {
-	user := os.Getenv("POSTGRES_USER")
-	password := os.Getenv("POSTGRES_PASSWORD")
-	dbname := os.Getenv("POSTGRES_DB")
-	dbhost := os.Getenv("DBHOST")
-	dbport := os.Getenv("DBPORT")
-	url = "postgresql://" + user + ":" + password + "@" + dbhost + ":" + dbport + "/" + dbname
-	return url
 }
