@@ -20,6 +20,18 @@
     "apiEmpty": {
       "type": "object"
     },
+    "apiGalleryImage": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Image": {
+          "$ref": "#/definitions/apiImage"
+        }
+      }
+    },
     "apiImage": {
       "type": "object",
       "properties": {
@@ -46,43 +58,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/apiImage"
-          }
-        }
-      }
-    },
-    "apiState": {
-      "type": "string",
-      "enum": [
-        "StartState",
-        "NoState",
-        "UploadImageInitState",
-        "UploadImageState",
-        "UploadDescriptionState",
-        "EditDescriptionState",
-        "RandomImageState",
-        "GalleryState"
-      ],
-      "default": "StartState"
-    },
-    "apiUser": {
-      "type": "object",
-      "properties": {
-        "UserID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "State": {
-          "$ref": "#/definitions/apiState"
-        },
-        "LastUpload": {
-          "type": "string"
-        },
-        "LastDownload": {
-          "type": "string"
-        },
-        "LastGalleryIndex": {
-          "type": "string",
-          "format": "int64"
+          },
+          "title": "homework"
         }
       }
     },

@@ -3,30 +3,11 @@ syntax = "proto3";
 package api;
 option go_package = "gitlab.ozon.dev/anuramat/homework-1/internal/api";
 
-message User {
-    int64 UserID = 1;
-    State State = 2;
-    string LastUpload = 3;
-    string LastDownload = 4;
-    int64 LastGalleryIndex = 5;
-}
-
 message Image {
     string FileID = 1;
     string Description = 2;
     int64 Upvotes = 3;
     int64 Downvotes = 4;
-}
-
-enum State {
-    StartState = 0;
-	NoState = 1;
-	UploadImageInitState = 2;
-	UploadImageState = 3;
-	UploadDescriptionState = 4;
-	EditDescriptionState = 5;
-	RandomImageState = 6;
-	GalleryState = 7;
 }
 
 message Empty{}
@@ -37,21 +18,30 @@ message ImageAuthRequest {
 }
 
 message Images {
+    //homework
     repeated Image Image = 1;
 }
 
 message Page {
+    //homework
     int32 offset = 1;
     int32 limit = 2;
 }
 
-service ImgShare {
-    rpc CreateUser(User) returns (User);
-    rpc ReadUser(User) returns (User);
-    rpc UpdateUser(User) returns (User);
-    rpc DeleteUser(User) returns (User);
+message GalleryRequest {
+    int32 offset = 1;
+    int64 UserID = 2;
+}
 
-    rpc CreateImage(ImageAuthRequest) returns (Image);
+message GalleryImage {
+    int32 offset = 1;
+    Image Image = 2;
+}
+
+service ImgShare {
+    
+    rpc GetGalleryImage(GalleryRequest) returns (GalleryImage);
+    rpc CreateImage(ImageAuthRequest) returns (Empty);
     rpc ReadImage(Image) returns (Image);
     rpc GetRandomImage(Empty) returns (Image);
     rpc SetDescriptionImage(ImageAuthRequest) returns (Image);

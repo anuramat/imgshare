@@ -22,11 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ImgShareClient interface {
-	CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
-	ReadUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
-	UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
-	DeleteUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
-	CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
+	GetGalleryImage(ctx context.Context, in *GalleryRequest, opts ...grpc.CallOption) (*GalleryImage, error)
+	CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error)
 	ReadImage(ctx context.Context, in *Image, opts ...grpc.CallOption) (*Image, error)
 	GetRandomImage(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Image, error)
 	SetDescriptionImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error)
@@ -45,44 +42,17 @@ func NewImgShareClient(cc grpc.ClientConnInterface) ImgShareClient {
 	return &imgShareClient{cc}
 }
 
-func (c *imgShareClient) CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.ImgShare/CreateUser", in, out, opts...)
+func (c *imgShareClient) GetGalleryImage(ctx context.Context, in *GalleryRequest, opts ...grpc.CallOption) (*GalleryImage, error) {
+	out := new(GalleryImage)
+	err := c.cc.Invoke(ctx, "/api.ImgShare/GetGalleryImage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *imgShareClient) ReadUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.ImgShare/ReadUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *imgShareClient) UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.ImgShare/UpdateUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *imgShareClient) DeleteUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
-	err := c.cc.Invoke(ctx, "/api.ImgShare/DeleteUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *imgShareClient) CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Image, error) {
-	out := new(Image)
+func (c *imgShareClient) CreateImage(ctx context.Context, in *ImageAuthRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/api.ImgShare/CreateImage", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -157,11 +127,8 @@ func (c *imgShareClient) GetAllImages(ctx context.Context, in *Page, opts ...grp
 // All implementations must embed UnimplementedImgShareServer
 // for forward compatibility
 type ImgShareServer interface {
-	CreateUser(context.Context, *User) (*User, error)
-	ReadUser(context.Context, *User) (*User, error)
-	UpdateUser(context.Context, *User) (*User, error)
-	DeleteUser(context.Context, *User) (*User, error)
-	CreateImage(context.Context, *ImageAuthRequest) (*Image, error)
+	GetGalleryImage(context.Context, *GalleryRequest) (*GalleryImage, error)
+	CreateImage(context.Context, *ImageAuthRequest) (*Empty, error)
 	ReadImage(context.Context, *Image) (*Image, error)
 	GetRandomImage(context.Context, *Empty) (*Image, error)
 	SetDescriptionImage(context.Context, *ImageAuthRequest) (*Image, error)
@@ -177,19 +144,10 @@ type ImgShareServer interface {
 type UnimplementedImgShareServer struct {
 }
 
-func (UnimplementedImgShareServer) CreateUser(context.Context, *User) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+func (UnimplementedImgShareServer) GetGalleryImage(context.Context, *GalleryRequest) (*GalleryImage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGalleryImage not implemented")
 }
-func (UnimplementedImgShareServer) ReadUser(context.Context, *User) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReadUser not implemented")
-}
-func (UnimplementedImgShareServer) UpdateUser(context.Context, *User) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
-}
-func (UnimplementedImgShareServer) DeleteUser(context.Context, *User) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
-}
-func (UnimplementedImgShareServer) CreateImage(context.Context, *ImageAuthRequest) (*Image, error) {
+func (UnimplementedImgShareServer) CreateImage(context.Context, *ImageAuthRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateImage not implemented")
 }
 func (UnimplementedImgShareServer) ReadImage(context.Context, *Image) (*Image, error) {
@@ -226,74 +184,20 @@ func RegisterImgShareServer(s grpc.ServiceRegistrar, srv ImgShareServer) {
 	s.RegisterService(&ImgShare_ServiceDesc, srv)
 }
 
-func _ImgShare_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
+func _ImgShare_GetGalleryImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GalleryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ImgShareServer).CreateUser(ctx, in)
+		return srv.(ImgShareServer).GetGalleryImage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.ImgShare/CreateUser",
+		FullMethod: "/api.ImgShare/GetGalleryImage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImgShareServer).CreateUser(ctx, req.(*User))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ImgShare_ReadUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ImgShareServer).ReadUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.ImgShare/ReadUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImgShareServer).ReadUser(ctx, req.(*User))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ImgShare_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ImgShareServer).UpdateUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.ImgShare/UpdateUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImgShareServer).UpdateUser(ctx, req.(*User))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ImgShare_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ImgShareServer).DeleteUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.ImgShare/DeleteUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImgShareServer).DeleteUser(ctx, req.(*User))
+		return srv.(ImgShareServer).GetGalleryImage(ctx, req.(*GalleryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -450,20 +354,8 @@ var ImgShare_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ImgShareServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateUser",
-			Handler:    _ImgShare_CreateUser_Handler,
-		},
-		{
-			MethodName: "ReadUser",
-			Handler:    _ImgShare_ReadUser_Handler,
-		},
-		{
-			MethodName: "UpdateUser",
-			Handler:    _ImgShare_UpdateUser_Handler,
-		},
-		{
-			MethodName: "DeleteUser",
-			Handler:    _ImgShare_DeleteUser_Handler,
+			MethodName: "GetGalleryImage",
+			Handler:    _ImgShare_GetGalleryImage_Handler,
 		},
 		{
 			MethodName: "CreateImage",

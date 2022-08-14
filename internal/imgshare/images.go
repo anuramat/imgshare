@@ -8,7 +8,7 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 )
 
-func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Image, error) {
+func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Empty, error) {
 	s.pool <- struct{}{}
 	defer func() { <-s.pool }()
 
@@ -20,7 +20,7 @@ func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (
 
 	sql := "INSERT INTO images (fileid, userid, description) VALUES ($1, $2, $3);"
 	s.DBPool.Exec(ctx, sql, input.Image.FileID, input.UserID, input.Image.Description)
-	return s.buildImage(ctx, input.Image.FileID)
+	return &api.Empty{}, nil
 }
 
 func (s *Server) ReadImage(ctx context.Context, input *api.Image) (*api.Image, error) {
@@ -164,4 +164,57 @@ func (s *Server) buildImage(ctx context.Context, fileID string) (*api.Image, err
 		return nil, err
 	}
 	return result, err
+}
+
+func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryRequest) (*api.GalleryImage, error) {
+	s.pool <- struct{}{}
+	defer func() { <-s.pool }()
+
+	select {
+	case <-ctx.Done():
+		return nil, errors.New("timeout")
+	default:
+	}
+
+	var offset int32 = 0
+	// get number of images in the gallry
+	sql_count := `SELECT
+	COUNT(*) AS count
+	FROM images
+	WHERE userid = $1`
+	row_count := s.DBPool.QueryRow(ctx, sql_count, request.UserID)
+	err := row_count.Scan(&offset)
+	if err != nil {
+		return nil, err
+	}
+	offset -= 1
+	if offset > request.Offset {
+		offset = request.Offset
+	}
+
+	image := &api.Image{}
+
+	sql_get := `SELECT
+	images.fileid as fileid,
+	images.description as description,
+	COUNT(*) FILTER (WHERE votes.upvote) as upvotes,
+	COUNT(*) FILTER (WHERE NOT votes.upvote) as downvotes
+	FROM images
+	LEFT JOIN votes ON images.fileid = votes.fileid
+	WHERE images.userid = $1
+	GROUP BY images.fileid
+	ORDER BY images.fileid
+	LIMIT 1
+	OFFSET $2`
+
+	row_get := s.DBPool.QueryRow(ctx, sql_get, request.UserID, request.Offset)
+	err = row_get.Scan(&image.FileID, &image.Description, &image.Upvotes, &image.Downvotes)
+
+	if err != nil {
+		return nil, err
+	}
+	result := &api.GalleryImage{}
+	result.Image = image
+	result.Offset = offset
+	return result, nil
 }
