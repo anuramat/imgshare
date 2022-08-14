@@ -176,20 +176,20 @@ func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryReques
 	default:
 	}
 
-	var offset int32 = 0
+	var total int32 = 0
 	// get number of images in the gallry
 	sql_count := `SELECT
 	COUNT(*) AS count
 	FROM images
 	WHERE userid = $1`
 	row_count := s.DBPool.QueryRow(ctx, sql_count, request.UserID)
-	err := row_count.Scan(&offset)
+	err := row_count.Scan(&total)
 	if err != nil {
 		return nil, err
 	}
-	offset -= 1
-	if offset > request.Offset {
-		offset = request.Offset
+	offset := request.Offset
+	if offset >= total {
+		offset = total - 1
 	}
 
 	image := &api.Image{}
@@ -207,7 +207,7 @@ func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryReques
 	LIMIT 1
 	OFFSET $2`
 
-	row_get := s.DBPool.QueryRow(ctx, sql_get, request.UserID, request.Offset)
+	row_get := s.DBPool.QueryRow(ctx, sql_get, request.UserID, offset)
 	err = row_get.Scan(&image.FileID, &image.Description, &image.Upvotes, &image.Downvotes)
 
 	if err != nil {
@@ -216,5 +216,6 @@ func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryReques
 	result := &api.GalleryImage{}
 	result.Image = image
 	result.Offset = offset
+	result.Total = total
 	return result, nil
 }

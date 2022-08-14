@@ -1,31 +1,33 @@
 package callbacks
 
 import (
+	"context"
+
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/keyboards"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 )
 
-func CallbackRouter(query *tgbotapi.CallbackQuery, users models.Users, images models.Images, messageFiles models.MessageFiles) models.ChattableSlice {
+func CallbackRouter(ctx context.Context, query *tgbotapi.CallbackQuery, data *models.BotData) models.ChattableSlice {
 	userID := query.From.ID
 	chatID := query.Message.Chat.ID
 	messageID := query.Message.MessageID
-	fileID := messageFiles[int64(messageID)]
+	fileID := data.MessageFiles[int64(messageID)]
 	switch query.Data {
 	case keyboards.UpvoteImageButton:
-		return upvoteCallback(userID, fileID, chatID, messageID, images, users)
+		return upvoteCallback(ctx, userID, fileID, chatID, messageID, data)
 	case keyboards.DownvoteImageButton:
-		return downvoteCallback(userID, fileID, chatID, messageID, images, users)
+		return downvoteCallback(ctx, userID, fileID, chatID, messageID, data)
 	case keyboards.NextImageButton:
-		return nextImageCallback(userID, chatID, messageID, users, images)
+		return nextImageCallback(ctx, userID, chatID, messageID, data)
 	case keyboards.PreviousImageButton:
-		return previousImageCallback(userID, chatID, messageID, users, images)
+		return previousImageCallback(ctx, userID, chatID, messageID, data)
 	case keyboards.EditDescriptionButton:
-		return editDescriptionCallback(userID, fileID, chatID, users)
+		return editDescriptionCallback(userID, fileID, chatID, data)
 	case keyboards.DeleteImageButton:
-		return deleteImageCallback(userID, chatID, messageID, users, images)
+		return deleteImageCallback(ctx, userID, chatID, messageID, data)
 	case keyboards.RandomImageButton:
-		return randomImageCallback(userID, chatID, messageID, users, images)
+		return randomImageCallback(ctx, userID, chatID, messageID, data)
 	}
 	panic("Unreachable, check if all keyboard buttons are covered")
 }

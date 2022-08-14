@@ -4,8 +4,10 @@ services:
     command: ./bin/imgshare_bot
     env_file: .env
     depends_on:
-      - db
       - imgshare
+    environment:
+      - SERVER=imgshare
+    restart: always
   imgshare:
     build: .
     command: ./imgshare_entrypoint.sh
@@ -20,6 +22,7 @@ services:
     env_file: .env
     depends_on:
       - db
+    restart: always
   imgshare_db:
     image: postgres
     restart: always

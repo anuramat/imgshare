@@ -27,6 +27,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
         "Image": {
           "$ref": "#/definitions/apiImage"
         }

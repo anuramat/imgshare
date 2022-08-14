@@ -1,31 +1,33 @@
 package messages
 
 import (
+	"context"
+
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 )
 
-func MessageRouter(msg *tgbotapi.Message, userID int64, users models.Users, images models.Images) models.ChattableSlice {
-	return models.ChattableSlice{MessageRouterSingle(msg, userID, users, images)}
+func MessageRouter(ctx context.Context, msg *tgbotapi.Message, userID int64, data *models.BotData) models.ChattableSlice {
+	return models.ChattableSlice{MessageRouterSingle(ctx, msg, userID, data)}
 }
 
-func MessageRouterSingle(msg *tgbotapi.Message, userID int64, users models.Users, images models.Images) tgbotapi.Chattable {
+func MessageRouterSingle(ctx context.Context, msg *tgbotapi.Message, userID int64, data *models.BotData) tgbotapi.Chattable {
 	chatID := msg.Chat.ID
-	switch users[userID].State {
+	switch data.Users[userID].State {
 	case models.StartState:
-		return StartHandler(chatID, userID, users)
+		return StartHandler(chatID, userID, data)
 	case models.UploadImageInitState:
-		return UploadImageInitHandler(chatID, userID, users)
+		return UploadImageInitHandler(chatID, userID, data)
 	case models.UploadImageState:
-		return UploadImageHandler(chatID, userID, users, msg)
+		return UploadImageHandler(chatID, userID, data, msg)
 	case models.UploadDescriptionState:
-		return UploadDescriptionHandler(chatID, userID, users, images, msg.Text)
+		return UploadDescriptionHandler(ctx, chatID, userID, data, msg.Text)
 	case models.EditDescriptionState:
-		return EditDescriptionHandler(chatID, userID, users, images, msg.Text)
+		return EditDescriptionHandler(ctx, chatID, userID, data, msg.Text)
 	case models.RandomImageState:
-		return RandomImageHandler(chatID, userID, images, users)
+		return RandomImageHandler(ctx, chatID, userID, data)
 	case models.GalleryState:
-		return GalleryHandler(chatID, userID, images, users)
+		return GalleryHandler(ctx, chatID, userID, data)
 	case models.NoState:
 		return DefaultHandler(chatID, userID)
 	}

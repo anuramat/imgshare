@@ -35,7 +35,8 @@ message GalleryRequest {
 
 message GalleryImage {
     int32 offset = 1;
-    Image Image = 2;
+    int32 total = 2;
+    Image Image = 3;
 }
 
 service ImgShare {

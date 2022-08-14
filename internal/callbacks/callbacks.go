@@ -1,62 +1,80 @@
 package callbacks
 
 import (
+	"context"
+	"log"
+
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/keyboards"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 )
 
-func upvoteCallback(userID int64, fileID string, chatID int64, messageID int, images models.Images, users models.Users) models.ChattableSlice {
-	ok := models.UpvoteImage(images, userID, fileID)
-	if !ok {
+func upvoteCallback(ctx context.Context, userID int64, fileID string, chatID int64, messageID int, data *models.BotData) models.ChattableSlice {
+	req := api.ImageAuthRequest{Image: &api.Image{FileID: fileID}, UserID: userID}
+	image, err := data.Client.UpvoteImage(ctx, &req)
+	if err != nil {
 		return models.ChattableSlice{}
+		// TODO return error message
 	}
-	text := models.PublicImageText(fileID, images)
+	text := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeDescription := tgbotapi.NewEditMessageCaption(chatID, messageID, text)
 	changeDescription.BaseEdit.ReplyMarkup = &keyboards.PublicImageKeyboard
 	return models.ChattableSlice{changeDescription}
 }
 
-func downvoteCallback(userID int64, fileID string, chatID int64, messageID int, images models.Images, users models.Users) models.ChattableSlice {
-	ok := models.DownvoteImage(images, userID, fileID)
-	if !ok {
+func downvoteCallback(ctx context.Context, userID int64, fileID string, chatID int64, messageID int, data *models.BotData) models.ChattableSlice {
+	req := api.ImageAuthRequest{Image: &api.Image{FileID: fileID}, UserID: userID}
+	image, err := data.Client.DownvoteImage(ctx, &req)
+	if err != nil {
 		return models.ChattableSlice{}
+		// TODO return error message
 	}
-	text := models.PublicImageText(fileID, images)
+	text := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeDescription := tgbotapi.NewEditMessageCaption(chatID, messageID, text)
 	changeDescription.BaseEdit.ReplyMarkup = &keyboards.PublicImageKeyboard
 	return models.ChattableSlice{changeDescription}
 }
 
-func editDescriptionCallback(userID int64, fileID string, chatID int64, users models.Users) models.ChattableSlice {
-	users[userID].LastUpload = fileID
-	users[userID].State = models.EditDescriptionState
+func editDescriptionCallback(userID int64, fileID string, chatID int64, data *models.BotData) models.ChattableSlice {
+	data.Users[userID].LastUpload = fileID
+	data.Users[userID].State = models.EditDescriptionState
 	return models.ChattableSlice{tgbotapi.NewMessage(chatID, "Enter new description:")}
 }
 
-// TODO combine next/prev callbacks
-func nextImageCallback(userID int64, chatID int64, messageID int, users models.Users, images models.Images) models.ChattableSlice {
-	n_files := len(users[userID].Images)
-	index := (users[userID].LastGalleryIndex + 1) % n_files
+// TODO mvoe more logic to indexImage
+func nextImageCallback(ctx context.Context, userID int64, chatID int64, messageID int, data *models.BotData) models.ChattableSlice {
+	index := data.Users[userID].LastGalleryIndex + 1
 	if index < 0 {
-		index += n_files
+		index = 0
 	}
-	users[userID].LastGalleryIndex = index
-	return indexImage(index, userID, chatID, messageID, users, images)
+	req := api.GalleryRequest{Offset: int32(index), UserID: userID}
+	result, err := data.Client.GetGalleryImage(ctx, &req)
+	// TODO return err if not nil
+	if err != nil {
+		log.Panicln(err)
+	}
+	data.Users[userID].LastGalleryIndex = int(result.Offset) + 1
+	return indexImage(index, int(result.Total), result.Image, userID, chatID, messageID, data)
 }
 
-func previousImageCallback(userID int64, chatID int64, messageID int, users models.Users, images models.Images) models.ChattableSlice {
-	n_files := len(users[userID].Images)
-	index := (users[userID].LastGalleryIndex - 1) % n_files
+func previousImageCallback(ctx context.Context, userID int64, chatID int64, messageID int, data *models.BotData) models.ChattableSlice {
+	index := data.Users[userID].LastGalleryIndex - 1
 	if index < 0 {
-		index += n_files
+		index = 0
 	}
-	users[userID].LastGalleryIndex = index
-	return indexImage(index, userID, chatID, messageID, users, images)
+	req := api.GalleryRequest{Offset: int32(index), UserID: userID}
+	result, err := data.Client.GetGalleryImage(ctx, &req)
+	// TODO return err if not nil
+	if err != nil {
+		log.Panicln(err)
+	}
+	data.Users[userID].LastGalleryIndex = int(result.Offset) + 1
+	return indexImage(index, int(result.Total), result.Image, userID, chatID, messageID, data)
 }
 
-func indexImage(index int, userID int64, chatID int64, messageID int, users models.Users, images models.Images) models.ChattableSlice {
-	fileID := users[userID].Images[index]
+func indexImage(index, n_photos int, image *api.Image, userID int64, chatID int64, messageID int, data *models.BotData) models.ChattableSlice {
+	fileID := image.FileID
 	changeImage := tgbotapi.EditMessageMediaConfig{
 		BaseEdit: tgbotapi.BaseEdit{
 			ChatID:      chatID,
@@ -65,34 +83,38 @@ func indexImage(index int, userID int64, chatID int64, messageID int, users mode
 		},
 		Media: tgbotapi.NewInputMediaPhoto(tgbotapi.FileID(fileID)),
 	}
-	description := models.GalleryText(index, fileID, userID, images, users)
-	changeText := tgbotapi.NewEditMessageCaption(chatID, messageID, description)
+	caption := models.GalleryText(index, n_photos, int(image.Upvotes), int(image.Downvotes), image.Description)
+	changeText := tgbotapi.NewEditMessageCaption(chatID, messageID, caption)
 	changeText.ReplyMarkup = &keyboards.GalleryKeyboard
 	return models.ChattableSlice{changeImage, changeText}
 }
 
-func deleteImageCallback(userID int64, chatID int64, messageID int, users models.Users, images models.Images) models.ChattableSlice {
-	i := users[userID].LastGalleryIndex
-	fileID := users[userID].Images[i]
-	users[userID].Images = append(users[userID].Images[:i], users[userID].Images[i+1:]...)
-	users[userID].State = models.NoState
-	delete(images, fileID)
+func deleteImageCallback(ctx context.Context, userID int64, chatID int64, messageID int, data *models.BotData) models.ChattableSlice {
+	// TODO
 	return models.ChattableSlice{tgbotapi.NewDeleteMessage(chatID, messageID)}
+	// index := users[userID].LastGalleryIndex
+	// // TODO return image with same index
+	// users[userID].State = models.NoState
+	// return models.ChattableSlice{tgbotapi.NewDeleteMessage(chatID, messageID)}
 }
 
-func randomImageCallback(userID int64, chatID int64, messageID int, users models.Users, images models.Images) models.ChattableSlice {
-	fileID := models.GetRandomImage(images)
-	users[userID].LastDownload = fileID
+func randomImageCallback(ctx context.Context, userID int64, chatID int64, messageID int, data *models.BotData) models.ChattableSlice {
+	image, err := data.Client.GetRandomImage(ctx, &api.Empty{})
+	if err != nil {
+		log.Panicln(err)
+	}
+	// TODO err
+	data.Users[userID].LastDownload = image.FileID
 	changeImage := tgbotapi.EditMessageMediaConfig{
 		BaseEdit: tgbotapi.BaseEdit{
 			ChatID:      chatID,
 			MessageID:   messageID,
 			ReplyMarkup: &keyboards.PublicImageKeyboard,
 		},
-		Media: tgbotapi.NewInputMediaPhoto(tgbotapi.FileID(fileID)),
+		Media: tgbotapi.NewInputMediaPhoto(tgbotapi.FileID(image.FileID)),
 	}
-	description := models.PublicImageText(fileID, images)
-	changeText := tgbotapi.NewEditMessageCaption(chatID, messageID, description)
+	caption := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
+	changeText := tgbotapi.NewEditMessageCaption(chatID, messageID, caption)
 	changeText.ReplyMarkup = &keyboards.PublicImageKeyboard
 	return models.ChattableSlice{changeImage, changeText}
 }

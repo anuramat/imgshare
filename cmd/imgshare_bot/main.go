@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"gitlab.ozon.dev/anuramat/homework-1/internal"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
+	"google.golang.org/grpc"
 )
 
 func main() {
@@ -21,10 +24,23 @@ func main() {
 	if err != nil {
 		log.Fatal("Couldn't initialize bot:", err)
 	}
+	server_address := os.Getenv("SERVER")
+	if len(server_address) == 0 {
+		log.Fatal("No imgshare server address in environment, exiting.")
+	}
 
+	conn, err := grpc.Dial(server_address)
+
+	if err != nil {
+		log.Fatal("Can't dial imgshare server, exiting.")
+	}
+	defer conn.Close()
+	client := api.NewImgShareClient(conn)
 	// start main loop
-	users := models.Users{}
-	images := models.Images{}
-	messageFiles := models.MessageFiles{}
-	internal.StartBot(bot, users, images, messageFiles)
+	data := &models.BotData{}
+	data.Client = client
+	data.Users = models.Users{}
+	data.MessageFiles = models.MessageFiles{}
+	ctx := context.Background()
+	internal.StartBot(ctx, bot, data)
 }
