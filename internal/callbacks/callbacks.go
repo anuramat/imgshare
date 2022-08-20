@@ -22,8 +22,7 @@ func upvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *mo
 	image, err := data.Client.UpvoteImage(ctx, &req)
 	if err != nil {
 		log.Println(err)
-		return models.ChattableSlice{}
-		// TODO return error message
+		return models.ChattableSlice{tgbotapi.NewMessage(chatID, "Error!")}
 	}
 	text := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeDescription := tgbotapi.NewEditMessageCaption(chatID, messageID, text)
@@ -41,8 +40,7 @@ func downvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *
 	image, err := data.Client.DownvoteImage(ctx, &req)
 	if err != nil {
 		log.Println(err)
-		return models.ChattableSlice{}
-		// TODO return error message
+		return models.ChattableSlice{tgbotapi.NewMessage(chatID, "Error!")}
 	}
 	text := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeDescription := tgbotapi.NewEditMessageCaption(chatID, messageID, text)
