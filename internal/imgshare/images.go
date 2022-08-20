@@ -2,10 +2,10 @@ package imgshare
 
 import (
 	"context"
-	"errors"
 	"log"
 
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/apierr"
 )
 
 func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Empty, error) {
@@ -14,12 +14,15 @@ func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
 	sql := "INSERT INTO images (fileid, userid, description) VALUES ($1, $2, $3);"
-	s.DBPool.Exec(ctx, sql, input.Image.FileID, input.UserID, input.Image.Description)
+	_, err := s.DBPool.Exec(ctx, sql, input.Image.FileID, input.UserID, input.Image.Description)
+	if err != nil {
+		return nil, err
+	}
 	return &api.Empty{}, nil
 }
 
@@ -29,7 +32,7 @@ func (s *Server) ReadImage(ctx context.Context, input *api.Image) (*api.Image, e
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
@@ -42,13 +45,32 @@ func (s *Server) GetRandomImage(ctx context.Context, _ *api.Empty) (*api.Image, 
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
-	// TODO get random fileID, put in fileID
-	// return s.buildImage(ctx, fileID)
-	return nil, nil
+	var fileID string
+	var count int
+
+	sql_count := "SELECT COUNT(*) FROM images;"
+	row_count := s.DBPool.QueryRow(ctx, sql_count)
+	err_count := row_count.Scan(&count)
+	if err_count != nil {
+		return nil, err_count
+	}
+
+	if count == 0 {
+		return nil, apierr.ErrNoImages
+	}
+
+	sql_random := "SELECT fileid FROM images ORDER BY random() LIMIT 1;"
+	row_random := s.DBPool.QueryRow(ctx, sql_random)
+	err_random := row_random.Scan(&fileID)
+	if err_random != nil {
+		return nil, err_random
+	}
+
+	return s.buildImage(ctx, fileID)
 }
 
 func (s *Server) upsertVoteImage(ctx context.Context, uid int64, fid string, vote bool) (*api.Image, error) {
@@ -57,12 +79,15 @@ func (s *Server) upsertVoteImage(ctx context.Context, uid int64, fid string, vot
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
 	sql := "INSERT INTO votes (fileid, userid, upvote) VALUES ($1, $2, $3) ON CONFLICT (fileid, userid) DO UPDATE SET upvote = $3;"
-	s.DBPool.Exec(ctx, sql, fid, uid, vote)
+	_, err := s.DBPool.Exec(ctx, sql, fid, uid, vote)
+	if err != nil {
+		return nil, err
+	}
 	return s.buildImage(ctx, fid)
 }
 
@@ -80,13 +105,17 @@ func (s *Server) SetDescriptionImage(ctx context.Context, input *api.ImageAuthRe
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
-	sql := "UPDATE images SET description = $1 WHERE fileid = $2 AND userid = $3;" // TODO check if updated
-	s.DBPool.Exec(ctx, sql, input.Image.Description, input.Image.FileID, input.UserID)
-	return s.buildImage(ctx, input.Image.FileID) // TODO return rows instead of building
+	sql := "UPDATE images SET description = $1 WHERE fileid = $2 AND userid = $3;"
+	_, err := s.DBPool.Exec(ctx, sql, input.Image.Description, input.Image.FileID, input.UserID)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.buildImage(ctx, input.Image.FileID)
 }
 
 func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (*api.Empty, error) {
@@ -95,13 +124,26 @@ func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
 	sql_images := "DELETE FROM images WHERE fileid = $1 AND userid = $2;"
-	s.DBPool.Exec(ctx, sql_images, input.Image.FileID, input.UserID)
-	// TODO delete votes? only if the image itself was deleted
+	res, err_images := s.DBPool.Exec(ctx, sql_images, input.Image.FileID, input.UserID)
+	if err_images != nil {
+		return nil, err_images
+	}
+	count := res.RowsAffected()
+	if count == 0 {
+		return &api.Empty{}, nil
+	}
+
+	sql_votes := "DELETE FROM votes WHERE fileid = $1;"
+	_, err_votes := s.DBPool.Exec(ctx, sql_votes, input.Image.FileID)
+	if err_votes != nil {
+		return nil, err_votes
+	}
+
 	return &api.Empty{}, nil
 }
 
@@ -112,7 +154,7 @@ func (s *Server) GetAllImages(ctx context.Context, page *api.Page) (*api.Images,
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
@@ -163,7 +205,8 @@ func (s *Server) buildImage(ctx context.Context, fileID string) (*api.Image, err
 	if err != nil {
 		return nil, err
 	}
-	return result, err
+
+	return result, nil
 }
 
 func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryRequest) (*api.GalleryImage, error) {
@@ -172,27 +215,31 @@ func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryReques
 
 	select {
 	case <-ctx.Done():
-		return nil, errors.New("timeout")
+		return nil, apierr.ErrTimeout
 	default:
 	}
 
-	var total int32 = 0
+	result := &api.GalleryImage{Image: &api.Image{}}
+
 	// get number of images in the gallry
 	sql_count := `SELECT
 	COUNT(*) AS count
 	FROM images
 	WHERE userid = $1`
 	row_count := s.DBPool.QueryRow(ctx, sql_count, request.UserID)
-	err := row_count.Scan(&total)
-	if err != nil {
-		return nil, err
-	}
-	offset := request.Offset
-	if offset >= total {
-		offset = total - 1
+	err_count := row_count.Scan(&result.Total)
+	if err_count != nil {
+		return nil, err_count
 	}
 
-	image := &api.Image{}
+	if result.Total == 0 {
+		return nil, apierr.ErrNoImages
+	}
+
+	result.Offset = request.Offset
+	if result.Offset >= result.Total {
+		result.Offset = result.Total - 1
+	}
 
 	sql_get := `SELECT
 	images.fileid as fileid,
@@ -207,15 +254,12 @@ func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryReques
 	LIMIT 1
 	OFFSET $2`
 
-	row_get := s.DBPool.QueryRow(ctx, sql_get, request.UserID, offset)
-	err = row_get.Scan(&image.FileID, &image.Description, &image.Upvotes, &image.Downvotes)
+	row_get := s.DBPool.QueryRow(ctx, sql_get, request.UserID, result.Offset)
+	err_get := row_get.Scan(&result.Image.FileID, &result.Image.Description, &result.Image.Upvotes, &result.Image.Downvotes)
 
-	if err != nil {
-		return nil, err
+	if err_get != nil {
+		return nil, err_get
 	}
-	result := &api.GalleryImage{}
-	result.Image = image
-	result.Offset = offset
-	result.Total = total
+
 	return result, nil
 }

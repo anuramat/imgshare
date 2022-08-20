@@ -1,4 +1,4 @@
-package internal
+package imgsharebot
 
 import (
 	"context"
@@ -37,7 +37,7 @@ func StartBot(ctx context.Context, bot *tgbotapi.BotAPI, data *models.BotData) {
 			if cmd_err != nil {
 				chattableSlice = models.ChattableSlice{tgbotapi.NewMessage(update.Message.Chat.ID, "Invalid command")}
 			} else {
-				chattableSlice = messages.MessageRouter(ctx, update.Message, uid, data)
+				chattableSlice = messages.MessageRouter(ctx, update.Message, data)
 			}
 		} else if update.CallbackQuery != nil {
 			chattableSlice = callbacks.CallbackRouter(ctx, update.CallbackQuery, data)

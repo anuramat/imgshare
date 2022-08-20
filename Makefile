@@ -1,7 +1,7 @@
 .PHONY: build generate dependencies clean
 
 build: generate
-	go build -o bin/imgshare_bot cmd/imgshare_bot/main.go
+	go build -o bin/imgsharebot cmd/imgsharebot/main.go
 	go build -o bin/imgshare cmd/imgshare/main.go
 
 generate: dependencies

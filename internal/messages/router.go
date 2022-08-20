@@ -12,24 +12,23 @@ func MessageRouter(ctx context.Context, msg *tgbotapi.Message, userID int64, dat
 }
 
 func MessageRouterSingle(ctx context.Context, msg *tgbotapi.Message, userID int64, data *models.BotData) tgbotapi.Chattable {
-	chatID := msg.Chat.ID
 	switch data.Users[userID].State {
 	case models.StartState:
-		return StartHandler(chatID, userID, data)
+		return StartHandler(ctx, msg, data)
 	case models.UploadImageInitState:
-		return UploadImageInitHandler(chatID, userID, data)
+		return UploadImageInitHandler(ctx, msg, data)
 	case models.UploadImageState:
-		return UploadImageHandler(chatID, userID, data, msg)
+		return UploadImageHandler(ctx, msg, data)
 	case models.UploadDescriptionState:
-		return UploadDescriptionHandler(ctx, chatID, userID, data, msg.Text)
+		return UploadDescriptionHandler(ctx, msg, data)
 	case models.EditDescriptionState:
-		return EditDescriptionHandler(ctx, chatID, userID, data, msg.Text)
+		return EditDescriptionHandler(ctx, msg, data)
 	case models.RandomImageState:
-		return RandomImageHandler(ctx, chatID, userID, data)
+		return RandomImageHandler(ctx, msg, data)
 	case models.GalleryState:
-		return GalleryHandler(ctx, chatID, userID, data)
+		return GalleryHandler(ctx, msg, data)
 	case models.NoState:
-		return DefaultHandler(chatID, userID)
+		return DefaultHandler(ctx, msg, data)
 	}
 	panic("Unreachable, check if all states are covered")
 }

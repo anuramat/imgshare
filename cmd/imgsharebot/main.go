@@ -6,8 +6,8 @@ import (
 	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"gitlab.ozon.dev/anuramat/homework-1/internal"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/imgsharebot"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 	"google.golang.org/grpc"
 )
@@ -42,5 +42,5 @@ func main() {
 	data.Users = models.Users{}
 	data.MessageFiles = models.MessageFiles{}
 	ctx := context.Background()
-	internal.StartBot(ctx, bot, data)
+	imgsharebot.StartBot(ctx, bot, data)
 }

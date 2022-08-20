@@ -1,18 +1,18 @@
 services:
-  imgshare_bot:
+  imgsharebot:
     build: .
-    command: ./bin/imgshare_bot
+    command: ./bin/imgsharebot
     env_file: .env
     depends_on:
       - imgshare
     environment:
-      - SERVER=imgshare
+      - SERVER=imgshare:51234
     restart: always
   imgshare:
     build: .
     command: ./imgshare_entrypoint.sh
     environment:
-      - DBHOST=imgshare_db
+      - DBHOST=imgsharedb
       - DBPORT=5432
       - DBSSL=disable
     ports:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - db
     restart: always
-  imgshare_db:
+  imgsharedb:
     image: postgres
     restart: always
     env_file: .env

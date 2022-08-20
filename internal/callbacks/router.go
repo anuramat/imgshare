@@ -9,25 +9,21 @@ import (
 )
 
 func CallbackRouter(ctx context.Context, query *tgbotapi.CallbackQuery, data *models.BotData) models.ChattableSlice {
-	userID := query.From.ID
-	chatID := query.Message.Chat.ID
-	messageID := query.Message.MessageID
-	fileID := data.MessageFiles[int64(messageID)]
 	switch query.Data {
 	case keyboards.UpvoteImageButton:
-		return upvoteCallback(ctx, userID, fileID, chatID, messageID, data)
+		return upvoteCallback(ctx, query, data)
 	case keyboards.DownvoteImageButton:
-		return downvoteCallback(ctx, userID, fileID, chatID, messageID, data)
+		return downvoteCallback(ctx, query, data)
 	case keyboards.NextImageButton:
-		return nextImageCallback(ctx, userID, chatID, messageID, data)
+		return nextImageCallback(ctx, query, data)
 	case keyboards.PreviousImageButton:
-		return previousImageCallback(ctx, userID, chatID, messageID, data)
+		return previousImageCallback(ctx, query, data)
 	case keyboards.EditDescriptionButton:
-		return editDescriptionCallback(userID, fileID, chatID, data)
+		return editDescriptionCallback(ctx, query, data)
 	case keyboards.DeleteImageButton:
-		return deleteImageCallback(ctx, userID, chatID, messageID, data)
+		return deleteImageCallback(ctx, query, data)
 	case keyboards.RandomImageButton:
-		return randomImageCallback(ctx, userID, chatID, messageID, data)
+		return randomImageCallback(ctx, query, data)
 	}
 	panic("Unreachable, check if all keyboard buttons are covered")
 }
