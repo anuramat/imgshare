@@ -10,6 +10,7 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/imgsharebot"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
@@ -29,7 +30,7 @@ func main() {
 		log.Fatal("No imgshare server address in environment, exiting.")
 	}
 
-	conn, err := grpc.Dial(server_address)
+	conn, err := grpc.Dial(server_address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
 		log.Fatal("Can't dial imgshare server, exiting.")

@@ -2,13 +2,14 @@ package callbacks
 
 import (
 	"context"
-	"errors"
+	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
-	"gitlab.ozon.dev/anuramat/homework-1/internal/apierr"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/keyboards"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func upvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *models.BotData) models.ChattableSlice {
@@ -20,6 +21,7 @@ func upvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *mo
 	req := api.ImageAuthRequest{Image: &api.Image{FileID: fileID}, UserID: userID}
 	image, err := data.Client.UpvoteImage(ctx, &req)
 	if err != nil {
+		log.Println(err)
 		return models.ChattableSlice{}
 		// TODO return error message
 	}
@@ -38,6 +40,7 @@ func downvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *
 	req := api.ImageAuthRequest{Image: &api.Image{FileID: fileID}, UserID: userID}
 	image, err := data.Client.DownvoteImage(ctx, &req)
 	if err != nil {
+		log.Println(err)
 		return models.ChattableSlice{}
 		// TODO return error message
 	}
@@ -78,11 +81,12 @@ func deltaIndexImage(delta_index int, ctx context.Context, query *tgbotapi.Callb
 	req := api.GalleryRequest{Offset: int32(user_index), UserID: userID}
 	result, err := data.Client.GetGalleryImage(ctx, &req)
 	// if gallery empty : delete message
-	if errors.Is(err, apierr.ErrNoImages) {
-		return models.ChattableSlice{tgbotapi.NewDeleteMessage(chatID, messageID)}
-	} else if err != nil {
-		// TODO callback error
+	st, ok := status.FromError(err)
+	if !ok {
+		log.Println(err)
 		return models.ChattableSlice{}
+	} else if st.Code() == codes.NotFound {
+		return models.ChattableSlice{tgbotapi.NewDeleteMessage(chatID, messageID)}
 	}
 	result_index := int(result.Offset)
 	data.Users[userID].LastGalleryIndex = result_index
@@ -119,11 +123,12 @@ func randomImageCallback(ctx context.Context, query *tgbotapi.CallbackQuery, dat
 	messageID := query.Message.MessageID
 
 	image, err := data.Client.GetRandomImage(ctx, &api.Empty{})
-	if errors.Is(err, apierr.ErrNoImages) {
-		return models.ChattableSlice{tgbotapi.NewDeleteMessage(chatID, messageID)}
-	} else if err != nil {
-		// TODO callback error
+	st, ok := status.FromError(err)
+	if !ok {
+		log.Println(err)
 		return models.ChattableSlice{}
+	} else if st.Code() == codes.NotFound {
+		return models.ChattableSlice{tgbotapi.NewDeleteMessage(chatID, messageID)}
 	}
 	data.Users[userID].LastDownload = image.FileID
 	changeImage := tgbotapi.EditMessageMediaConfig{

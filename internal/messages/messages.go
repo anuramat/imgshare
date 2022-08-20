@@ -2,13 +2,14 @@ package messages
 
 import (
 	"context"
-	"errors"
+	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
-	"gitlab.ozon.dev/anuramat/homework-1/internal/apierr"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/keyboards"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func DefaultHandler(ctx context.Context, msg *tgbotapi.Message, data *models.BotData) tgbotapi.MessageConfig {
@@ -38,9 +39,9 @@ func UploadImageHandler(ctx context.Context, msg *tgbotapi.Message, data *models
 func UploadDescriptionHandler(ctx context.Context, msg *tgbotapi.Message, data *models.BotData) tgbotapi.MessageConfig {
 	fid := data.Users[msg.From.ID].LastUpload
 	req := api.ImageAuthRequest{UserID: msg.From.ID, Image: &api.Image{FileID: fid, Description: msg.Text}}
-	_, err := data.Client.SetDescriptionImage(ctx, &req)
+	_, err := data.Client.CreateImage(ctx, &req)
 	if err != nil {
-		// TODO log error
+		log.Println(err)
 		return tgbotapi.NewMessage(msg.Chat.ID, "Error!")
 	}
 
@@ -50,10 +51,10 @@ func UploadDescriptionHandler(ctx context.Context, msg *tgbotapi.Message, data *
 
 func EditDescriptionHandler(ctx context.Context, msg *tgbotapi.Message, data *models.BotData) tgbotapi.MessageConfig {
 	fid := data.Users[msg.From.ID].LastUpload
-	req := api.ImageAuthRequest{UserID: msg.From.ID, Image: &api.Image{FileID: fid}}
+	req := api.ImageAuthRequest{UserID: msg.From.ID, Image: &api.Image{FileID: fid, Description: msg.Text}}
 	_, err := data.Client.SetDescriptionImage(ctx, &req)
 	if err != nil {
-		// TODO log error
+		log.Println(err)
 		return tgbotapi.NewMessage(msg.Chat.ID, "Error!")
 	}
 
@@ -63,11 +64,13 @@ func EditDescriptionHandler(ctx context.Context, msg *tgbotapi.Message, data *mo
 
 func RandomImageHandler(ctx context.Context, msg *tgbotapi.Message, data *models.BotData) tgbotapi.Chattable {
 	result, err := data.Client.GetRandomImage(ctx, &api.Empty{})
-	if errors.Is(err, apierr.ErrNoImages) {
-		return tgbotapi.NewMessage(msg.Chat.ID, "No images yet!")
-	} else if err != nil {
-		// TODO log error
+
+	st, ok := status.FromError(err)
+	if !ok {
+		log.Println(err)
 		return tgbotapi.NewMessage(msg.Chat.ID, "Error!")
+	} else if st.Code() == codes.NotFound {
+		return tgbotapi.NewMessage(msg.Chat.ID, "No images yet!")
 	}
 
 	text := models.PublicImageText(int(result.Upvotes), int(result.Downvotes), result.Description)
@@ -82,11 +85,12 @@ func GalleryHandler(ctx context.Context, msg *tgbotapi.Message, data *models.Bot
 	index := data.Users[msg.From.ID].LastGalleryIndex
 	req := api.GalleryRequest{Offset: int32(index), UserID: msg.From.ID}
 	result, err := data.Client.GetGalleryImage(ctx, &req)
-	if errors.Is(err, apierr.ErrNoImages) {
-		return tgbotapi.NewMessage(msg.Chat.ID, "No images yet!")
-	} else if err != nil {
-		// TODO log error
+	st, ok := status.FromError(err)
+	if !ok {
+		log.Println(err)
 		return tgbotapi.NewMessage(msg.Chat.ID, "Error!")
+	} else if st.Code() == codes.NotFound {
+		return tgbotapi.NewMessage(msg.Chat.ID, "No images yet!")
 	}
 	text := models.GalleryText(index, int(result.Total), int(result.Image.Upvotes), int(result.Image.Downvotes), result.Image.Description)
 	photo := tgbotapi.NewPhoto(msg.Chat.ID, tgbotapi.FileID(result.Image.FileID))

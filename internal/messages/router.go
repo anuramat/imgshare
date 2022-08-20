@@ -7,12 +7,12 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
 )
 
-func MessageRouter(ctx context.Context, msg *tgbotapi.Message, userID int64, data *models.BotData) models.ChattableSlice {
-	return models.ChattableSlice{MessageRouterSingle(ctx, msg, userID, data)}
+func MessageRouter(ctx context.Context, msg *tgbotapi.Message, data *models.BotData) models.ChattableSlice {
+	return models.ChattableSlice{MessageRouterSingle(ctx, msg, data)}
 }
 
-func MessageRouterSingle(ctx context.Context, msg *tgbotapi.Message, userID int64, data *models.BotData) tgbotapi.Chattable {
-	switch data.Users[userID].State {
+func MessageRouterSingle(ctx context.Context, msg *tgbotapi.Message, data *models.BotData) tgbotapi.Chattable {
+	switch data.Users[msg.From.ID].State {
 	case models.StartState:
 		return StartHandler(ctx, msg, data)
 	case models.UploadImageInitState:
