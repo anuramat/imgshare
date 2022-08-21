@@ -58,7 +58,7 @@ func StartBot(ctx context.Context, bot *tgbotapi.BotAPI, data *models.BotData) {
 				if err != nil {
 					log.Panicln("Encountered an error when sending a message:", err)
 				}
-				// HACK
+				// save to MessageFiles
 				if len(sent.Photo) != 0 {
 					data.MessageFiles[int64(sent.MessageID)] = data.Users[uid].LastDownload
 				}
