@@ -1,8 +1,6 @@
 package models
 
 import (
-	"strconv"
-
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 )
@@ -35,18 +33,6 @@ const (
 	RandomImageState
 	GalleryState
 )
-
-func PublicImageText(upvotes, downvotes int, description string) string {
-	text := "U/D: " + strconv.Itoa(upvotes) + "/" + strconv.Itoa(downvotes) + "\nDescription: " + description
-	return text
-}
-
-func GalleryText(index, n_photos, upvotes, downvotes int, description string) string {
-	text := "Image " + strconv.Itoa(1+index) + "/" + strconv.Itoa(n_photos) +
-		"\nU/D: " + strconv.Itoa(upvotes) + "/" + strconv.Itoa(downvotes) +
-		"\nDescription: " + description
-	return text
-}
 
 func (d BotData) AddUser(uid int64) (err error) {
 	d.Users[uid] = &User{

@@ -8,6 +8,7 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/keyboards"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -24,7 +25,7 @@ func upvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *mo
 		log.Println(err)
 		return models.ChattableSlice{tgbotapi.NewMessage(chatID, "Error!")}
 	}
-	text := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
+	text := utils.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeDescription := tgbotapi.NewEditMessageCaption(chatID, messageID, text)
 	changeDescription.BaseEdit.ReplyMarkup = &keyboards.PublicImageKeyboard
 	return models.ChattableSlice{changeDescription}
@@ -42,7 +43,7 @@ func downvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *
 		log.Println(err)
 		return models.ChattableSlice{tgbotapi.NewMessage(chatID, "Error!")}
 	}
-	text := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
+	text := utils.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeDescription := tgbotapi.NewEditMessageCaption(chatID, messageID, text)
 	changeDescription.BaseEdit.ReplyMarkup = &keyboards.PublicImageKeyboard
 	return models.ChattableSlice{changeDescription}
@@ -137,7 +138,7 @@ func randomImageCallback(ctx context.Context, query *tgbotapi.CallbackQuery, dat
 		},
 		Media: tgbotapi.NewInputMediaPhoto(tgbotapi.FileID(image.FileID)),
 	}
-	caption := models.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
+	caption := utils.PublicImageText(int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeText := tgbotapi.NewEditMessageCaption(chatID, messageID, caption)
 	changeText.ReplyMarkup = &keyboards.PublicImageKeyboard
 	return models.ChattableSlice{changeImage, changeText}

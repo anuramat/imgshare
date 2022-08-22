@@ -8,6 +8,7 @@ import (
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/keyboards"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/models"
+	"gitlab.ozon.dev/anuramat/homework-1/internal/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -73,7 +74,7 @@ func RandomImageHandler(ctx context.Context, msg *tgbotapi.Message, data *models
 		return tgbotapi.NewMessage(msg.Chat.ID, "No images yet!")
 	}
 
-	text := models.PublicImageText(int(result.Upvotes), int(result.Downvotes), result.Description)
+	text := utils.PublicImageText(int(result.Upvotes), int(result.Downvotes), result.Description)
 	photo := tgbotapi.NewPhoto(msg.Chat.ID, tgbotapi.FileID(result.FileID))
 	photo.Caption = text
 	photo.ReplyMarkup = keyboards.PublicImageKeyboard
@@ -92,7 +93,7 @@ func GalleryHandler(ctx context.Context, msg *tgbotapi.Message, data *models.Bot
 	} else if st.Code() == codes.NotFound {
 		return tgbotapi.NewMessage(msg.Chat.ID, "No images yet!")
 	}
-	text := models.GalleryText(index, int(result.Total), int(result.Image.Upvotes), int(result.Image.Downvotes), result.Image.Description)
+	text := utils.GalleryText(index, int(result.Total), int(result.Image.Upvotes), int(result.Image.Downvotes), result.Image.Description)
 	photo := tgbotapi.NewPhoto(msg.Chat.ID, tgbotapi.FileID(result.Image.FileID))
 	photo.Caption = text
 	photo.ReplyMarkup = keyboards.GalleryKeyboard
