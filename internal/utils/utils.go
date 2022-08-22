@@ -3,7 +3,8 @@ package utils
 import "strconv"
 
 func PublicImageText(upvotes, downvotes int, description string) string {
-	text := "U/D: " + strconv.Itoa(upvotes) + "/" + strconv.Itoa(downvotes) + "\nDescription: " + description
+	text := "U/D: " + strconv.Itoa(upvotes) + "/" + strconv.Itoa(downvotes) +
+		"\nDescription: " + description
 	return text
 }
 
