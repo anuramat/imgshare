@@ -38,10 +38,7 @@ func main() {
 	defer conn.Close()
 	client := api.NewImgShareClient(conn)
 	// start main loop
-	data := &models.BotData{}
-	data.Client = client
-	data.Users = models.Users{}
-	data.MessageFiles = models.MessageFiles{}
+	data := models.NewBotData(client)
 	ctx := context.Background()
 	imgsharebot.StartBot(ctx, bot, data)
 }

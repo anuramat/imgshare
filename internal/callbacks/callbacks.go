@@ -99,7 +99,7 @@ func deltaIndexImage(delta_index int, ctx context.Context, query *tgbotapi.Callb
 		},
 		Media: tgbotapi.NewInputMediaPhoto(tgbotapi.FileID(image.FileID)),
 	}
-	caption := models.GalleryText(result_index, int(result.Total), int(image.Upvotes), int(image.Downvotes), image.Description)
+	caption := utils.GalleryText(result_index, int(result.Total), int(image.Upvotes), int(image.Downvotes), image.Description)
 	changeText := tgbotapi.NewEditMessageCaption(chatID, messageID, caption)
 	changeText.ReplyMarkup = &keyboards.GalleryKeyboard
 	return models.ChattableSlice{changeImage, changeText}

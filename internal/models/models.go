@@ -16,6 +16,7 @@ type BotData struct {
 	Users
 	MessageFiles
 }
+
 type User struct {
 	State            state
 	LastUpload       string
@@ -33,6 +34,14 @@ const (
 	RandomImageState
 	GalleryState
 )
+
+func NewBotData(client api.ImgShareClient) *BotData {
+	return &BotData{
+		Client:       client,
+		Users:        Users{},
+		MessageFiles: MessageFiles{},
+	}
+}
 
 func (d BotData) AddUser(uid int64) (err error) {
 	d.Users[uid] = &User{
