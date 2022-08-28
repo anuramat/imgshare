@@ -6,7 +6,7 @@ import (
 )
 
 // message id -> file id
-type MessageFiles map[int64]string
+type MessageFiles map[int]string
 type Users map[int64]*User
 type ChattableSlice []tgbotapi.Chattable
 type state uint8
@@ -21,7 +21,7 @@ type User struct {
 	State            state
 	LastUpload       string
 	LastDownload     string
-	LastGalleryIndex int
+	LastGalleryIndex int32
 }
 
 const (

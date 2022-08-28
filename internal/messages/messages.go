@@ -93,11 +93,11 @@ func GalleryHandler(ctx context.Context, msg *tgbotapi.Message, data *models.Bot
 	} else if st.Code() == codes.NotFound {
 		return tgbotapi.NewMessage(msg.Chat.ID, "No images yet!")
 	}
-	text := utils.GalleryText(int(result.Offset), int(result.Total), int(result.Image.Upvotes), int(result.Image.Downvotes), result.Image.Description)
+	text := utils.GalleryText(result.Offset, int(result.Total), int(result.Image.Upvotes), int(result.Image.Downvotes), result.Image.Description)
 	photo := tgbotapi.NewPhoto(msg.Chat.ID, tgbotapi.FileID(result.Image.FileID))
 	photo.Caption = text
 	photo.ReplyMarkup = keyboards.GalleryKeyboard
 	data.Users[msg.From.ID].LastDownload = result.Image.FileID
-	data.Users[msg.From.ID].LastGalleryIndex = int(result.Offset)
+	data.Users[msg.From.ID].LastGalleryIndex = result.Offset
 	return photo
 }

@@ -17,7 +17,7 @@ func upvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *mo
 	userID := query.From.ID
 	chatID := query.Message.Chat.ID
 	messageID := query.Message.MessageID
-	fileID := data.MessageFiles[int64(messageID)]
+	fileID := data.MessageFiles[messageID]
 
 	req := api.ImageAuthRequest{Image: &api.Image{FileID: fileID}, UserID: userID}
 	image, err := data.Client.UpvoteImage(ctx, &req)
@@ -35,7 +35,7 @@ func downvoteCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *
 	userID := query.From.ID
 	chatID := query.Message.Chat.ID
 	messageID := query.Message.MessageID
-	fileID := data.MessageFiles[int64(messageID)]
+	fileID := data.MessageFiles[messageID]
 
 	req := api.ImageAuthRequest{Image: &api.Image{FileID: fileID}, UserID: userID}
 	image, err := data.Client.DownvoteImage(ctx, &req)
@@ -53,7 +53,7 @@ func editDescriptionCallback(_ context.Context, query *tgbotapi.CallbackQuery, d
 	userID := query.From.ID
 	chatID := query.Message.Chat.ID
 	messageID := query.Message.MessageID
-	fileID := data.MessageFiles[int64(messageID)]
+	fileID := data.MessageFiles[messageID]
 
 	data.Users[userID].LastUpload = fileID
 	data.Users[userID].State = models.EditDescriptionState
@@ -68,7 +68,7 @@ func previousImageCallback(ctx context.Context, query *tgbotapi.CallbackQuery, d
 	return deltaIndexImage(-1, ctx, query, data)
 }
 
-func deltaIndexImage(delta_index int, ctx context.Context, query *tgbotapi.CallbackQuery, data *models.BotData) models.ChattableSlice {
+func deltaIndexImage(delta_index int32, ctx context.Context, query *tgbotapi.CallbackQuery, data *models.BotData) models.ChattableSlice {
 	userID := query.From.ID
 	chatID := query.Message.Chat.ID
 	messageID := query.Message.MessageID
@@ -77,7 +77,7 @@ func deltaIndexImage(delta_index int, ctx context.Context, query *tgbotapi.Callb
 	if user_index < 0 {
 		user_index = 0
 	}
-	req := api.GalleryRequest{Offset: int32(user_index), UserID: userID}
+	req := api.GalleryRequest{Offset: user_index, UserID: userID}
 	result, err := data.Client.GetGalleryImage(ctx, &req)
 	// if gallery empty : delete message
 	st, ok := status.FromError(err)
@@ -87,8 +87,9 @@ func deltaIndexImage(delta_index int, ctx context.Context, query *tgbotapi.Callb
 	} else if st.Code() == codes.NotFound {
 		return models.ChattableSlice{tgbotapi.NewDeleteMessage(chatID, messageID)}
 	}
-	result_index := int(result.Offset)
+	result_index := result.Offset
 	data.Users[userID].LastGalleryIndex = result_index
+	data.Users[userID].LastDownload = result.Image.FileID
 	image := result.Image
 
 	changeImage := tgbotapi.EditMessageMediaConfig{
@@ -108,10 +109,14 @@ func deltaIndexImage(delta_index int, ctx context.Context, query *tgbotapi.Callb
 func deleteImageCallback(ctx context.Context, query *tgbotapi.CallbackQuery, data *models.BotData) models.ChattableSlice {
 	userID := query.From.ID
 	messageID := query.Message.MessageID
-	fileID := data.MessageFiles[int64(messageID)]
+	fileID := data.MessageFiles[messageID]
 	// delete image from db
 	del_req := api.ImageAuthRequest{Image: &api.Image{FileID: fileID}, UserID: userID}
-	data.Client.DeleteImage(ctx, &del_req)
+	_, err := data.Client.DeleteImage(ctx, &del_req)
+	if err != nil {
+		log.Println(err)
+		return models.ChattableSlice{}
+	}
 	// update message
 	return deltaIndexImage(0, ctx, query, data)
 }

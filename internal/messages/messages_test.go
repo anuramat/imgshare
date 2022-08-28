@@ -225,16 +225,16 @@ func TestGalleryHandler(t *testing.T) {
 		var uid int64 = 123
 		var cid int64 = 456
 		var fid string = "789"
-		var last_index int = 1453
-		var offset int = 5123
-		var total int = 124123
+		var last_index int32 = 1453
+		var offset int32 = 5123
+		var total int32 = 124123
 
 		msg := makeMsg(uid, cid, "", "")
 		ctx := context.Background()
 		mockCtrl := gomock.NewController(t)
 		mockClient := mocks.NewMockImgShareClient(mockCtrl)
-		req := api.GalleryRequest{Offset: int32(last_index), UserID: uid}
-		resp := &api.GalleryImage{Offset: int32(offset), Total: int32(total), Image: &api.Image{FileID: fid}}
+		req := api.GalleryRequest{Offset: last_index, UserID: uid}
+		resp := &api.GalleryImage{Offset: offset, Total: total, Image: &api.Image{FileID: fid}}
 		mockClient.EXPECT().GetGalleryImage(ctx, gomock.Eq(&req)).Return(resp, nil)
 		data := models.NewBotData(mockClient)
 		data.AddUser(uid)
@@ -249,17 +249,17 @@ func TestGalleryHandler(t *testing.T) {
 		assert.IsType(t, tgbotapi.PhotoConfig{}, photo)
 	})
 
-	t.Run("good input", func(t *testing.T) {
+	t.Run("grpc error case", func(t *testing.T) {
 		// arrange
 		var uid int64 = 123
 		var cid int64 = 456
-		var last_index int = 1453
+		var last_index int32 = 1453
 
 		msg := makeMsg(uid, cid, "", "")
 		ctx := context.Background()
 		mockCtrl := gomock.NewController(t)
 		mockClient := mocks.NewMockImgShareClient(mockCtrl)
-		req := api.GalleryRequest{Offset: int32(last_index), UserID: uid}
+		req := api.GalleryRequest{Offset: last_index, UserID: uid}
 		mockClient.EXPECT().GetGalleryImage(ctx, gomock.Eq(&req)).Return(nil, Err)
 		data := models.NewBotData(mockClient)
 		data.AddUser(uid)

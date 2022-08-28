@@ -60,7 +60,7 @@ func StartBot(ctx context.Context, bot *tgbotapi.BotAPI, data *models.BotData) {
 				}
 				// save to MessageFiles
 				if len(sent.Photo) != 0 {
-					data.MessageFiles[int64(sent.MessageID)] = data.Users[uid].LastDownload
+					data.MessageFiles[sent.MessageID] = data.Users[uid].LastDownload
 				}
 			}
 		}
