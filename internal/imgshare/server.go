@@ -4,6 +4,8 @@ import (
 	"context"
 	"os"
 
+	"github.com/jackc/pgconn"
+	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"gitlab.ozon.dev/anuramat/homework-1/internal/api"
 )
@@ -11,14 +13,25 @@ import (
 type Server struct {
 	api.UnimplementedImgShareServer
 	pool   chan struct{}
-	DBPool *pgxpool.Pool
+	dbpool dbpool
+}
+
+type dbpool interface {
+	Close()
+	Exec(context.Context, string, ...interface{}) (pgconn.CommandTag, error)
+	Query(context.Context, string, ...interface{}) (pgx.Rows, error)
+	QueryRow(context.Context, string, ...interface{}) pgx.Row
 }
 
 func NewServer(n_jobs int) (s *Server, err error) {
 	s = &Server{}
 	s.pool = make(chan struct{}, n_jobs)
-	s.DBPool, err = pgxpool.Connect(context.Background(), getDBURL())
+	s.dbpool, err = pgxpool.Connect(context.Background(), getDBURL())
 	return
+}
+
+func (s Server) Close() {
+	s.dbpool.Close()
 }
 
 func getDBURL() (url string) {

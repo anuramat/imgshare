@@ -6,6 +6,7 @@ build: generate
 
 mock: generate
 	./bin/mockgen -source=internal/api/api_grpc.pb.go -destination=internal/mocks/grpc_mocks.go -package=mocks
+	./bin/mockgen -source=internal/imgshare/server.go -destination=internal/mocks/db_mocks.go -package=mocks
 
 generate: dependencies
 	buf mod update

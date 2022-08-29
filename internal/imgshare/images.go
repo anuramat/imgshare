@@ -21,7 +21,7 @@ func (s *Server) CreateImage(ctx context.Context, input *api.ImageAuthRequest) (
 	}
 
 	query := "INSERT INTO images (fileid, userid, description) VALUES ($1, $2, $3);"
-	_, err := s.DBPool.Exec(ctx, query, input.Image.FileID, input.UserID, input.Image.Description)
+	_, err := s.dbpool.Exec(ctx, query, input.Image.FileID, input.UserID, input.Image.Description)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -56,7 +56,7 @@ func (s *Server) GetRandomImage(ctx context.Context, _ *api.Empty) (*api.Image, 
 	var count int
 
 	query_count := "SELECT COUNT(*) FROM images;"
-	row_count := s.DBPool.QueryRow(ctx, query_count)
+	row_count := s.dbpool.QueryRow(ctx, query_count)
 	err_count := row_count.Scan(&count)
 	if err_count != nil {
 		log.Println(err_count)
@@ -68,7 +68,7 @@ func (s *Server) GetRandomImage(ctx context.Context, _ *api.Empty) (*api.Image, 
 	}
 
 	query_random := "SELECT fileid FROM images ORDER BY random() LIMIT 1;"
-	row_random := s.DBPool.QueryRow(ctx, query_random)
+	row_random := s.dbpool.QueryRow(ctx, query_random)
 	err_random := row_random.Scan(&fileID)
 	if err_random != nil {
 		log.Println(err_random)
@@ -89,7 +89,7 @@ func (s *Server) upsertVoteImage(ctx context.Context, uid int64, fid string, vot
 	}
 
 	query := "INSERT INTO votes (fileid, userid, upvote) VALUES ($1, $2, $3) ON CONFLICT (fileid, userid) DO UPDATE SET upvote = $3;"
-	_, err := s.DBPool.Exec(ctx, query, fid, uid, vote)
+	_, err := s.dbpool.Exec(ctx, query, fid, uid, vote)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -116,7 +116,7 @@ func (s *Server) SetDescriptionImage(ctx context.Context, input *api.ImageAuthRe
 	}
 
 	query := "UPDATE images SET description = $1 WHERE fileid = $2 AND userid = $3;"
-	_, err := s.DBPool.Exec(ctx, query, input.Image.Description, input.Image.FileID, input.UserID)
+	_, err := s.dbpool.Exec(ctx, query, input.Image.Description, input.Image.FileID, input.UserID)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -136,7 +136,7 @@ func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (
 	}
 
 	query_images := "DELETE FROM images WHERE fileid = $1 AND userid = $2;"
-	res, err_images := s.DBPool.Exec(ctx, query_images, input.Image.FileID, input.UserID)
+	res, err_images := s.dbpool.Exec(ctx, query_images, input.Image.FileID, input.UserID)
 	if err_images != nil {
 		log.Println(err_images)
 		return nil, err_images
@@ -147,7 +147,7 @@ func (s *Server) DeleteImage(ctx context.Context, input *api.ImageAuthRequest) (
 	}
 
 	query_votes := "DELETE FROM votes WHERE fileid = $1;"
-	_, err_votes := s.DBPool.Exec(ctx, query_votes, input.Image.FileID)
+	_, err_votes := s.dbpool.Exec(ctx, query_votes, input.Image.FileID)
 	if err_votes != nil {
 		log.Println(err_votes)
 		return nil, err_votes
@@ -178,7 +178,7 @@ func (s *Server) GetAllImages(ctx context.Context, page *api.Page) (*api.Images,
 	ORDER BY images.fileid
 	LIMIT $1
 	OFFSET $2;`
-	rows, err := s.DBPool.Query(ctx, query, page.Limit, page.Offset)
+	rows, err := s.dbpool.Query(ctx, query, page.Limit, page.Offset)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -209,7 +209,7 @@ func (s *Server) buildImage(ctx context.Context, fileID string) (*api.Image, err
 	WHERE images.fileid = $1
 	GROUP BY images.fileid`
 
-	row := s.DBPool.QueryRow(ctx, query, fileID)
+	row := s.dbpool.QueryRow(ctx, query, fileID)
 	err := row.Scan(&result.FileID, &result.Description, &result.Upvotes, &result.Downvotes)
 
 	if err != nil {
@@ -237,7 +237,7 @@ func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryReques
 	COUNT(*) AS count
 	FROM images
 	WHERE userid = $1`
-	row_count := s.DBPool.QueryRow(ctx, query_count, request.UserID)
+	row_count := s.dbpool.QueryRow(ctx, query_count, request.UserID)
 	err_count := row_count.Scan(&result.Total)
 	if err_count != nil {
 		log.Println(err_count)
@@ -266,7 +266,7 @@ func (s *Server) GetGalleryImage(ctx context.Context, request *api.GalleryReques
 	LIMIT 1
 	OFFSET $2`
 
-	row_get := s.DBPool.QueryRow(ctx, query_get, request.UserID, result.Offset)
+	row_get := s.dbpool.QueryRow(ctx, query_get, request.UserID, result.Offset)
 	err_get := row_get.Scan(&result.Image.FileID, &result.Image.Description, &result.Image.Upvotes, &result.Image.Downvotes)
 
 	if err_get != nil {

@@ -40,7 +40,7 @@ func start_grpc() {
 	if err != nil {
 		log.Panicln(err)
 	}
-	defer imgshare_server.DBPool.Close()
+	defer imgshare_server.Close()
 	api.RegisterImgShareServer(grpc_server, imgshare_server)
 	reflection.Register(grpc_server)
 	if err := grpc_server.Serve(listener); err != nil {
